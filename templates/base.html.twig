@@ -28,7 +28,7 @@
         
             <ul class="nav flex-column mb-0">
                 <li class="nav-item">
-                    <a href="#" class="nav-link text-light font-italic">
+                    <a href="http://127.0.0.1:8000/evenement" class="nav-link text-light font-italic">
                         <i class="fas fa-calendar-alt mr-4 text-light fa-fw"></i>
                         Événement
                     </a>
@@ -60,23 +60,6 @@
             {% block body %}{% endblock %}
         </div>
         <!-- End content -->
-
-        <!-- Start chat -->
-        <div class="vertical-chat bg-dark" id="chatbar">
-            <ul class="nav flex-column mb-0">
-                {% for i in 1..25 %}
-                <li class="nav-item">
-                    <a href="#" class="nav-link text-light font-italic">
-                        <img src="{{ asset('build/default_user_pic.png') }}" alt="Profil picture">
-                        <div class="pseudoUserOnline">Chat {{ i }}</div>
-                        <div style="float: right;margin-top:-25px"><i class="fas fa-ellipsis-v"></i></div>
-                    </a>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <!-- End chat -->
-
 
     </body>
 </html>

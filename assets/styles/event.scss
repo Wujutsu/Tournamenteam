@@ -1,0 +1,45 @@
+.filtre, .filtre-active {
+    background: rgb(41, 41, 41);
+    color: white;
+    border: 2px solid rgb(41, 41, 41);
+    border-radius: 20px;
+    padding: 2px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    width: fit-content;
+    display: inline-block;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.filtre-active {
+    background: rgb(233, 170, 33);
+    color: rgb(41, 41, 41);
+}
+
+.cadreEvent {
+    margin-bottom: 20px;
+    cursor: pointer;
+    img {
+        filter: brightness(0.7);
+        width:100%;
+    }
+    .bodyEvent {
+        margin-top:-35px;
+        padding-left: 10px;
+        color: white;
+        font-weight: bold;
+        filter: brightness(1);
+        font-size: 20px;
+    }
+}
+.cadreEvent:hover {
+    img {
+        filter: brightness(0.4);
+    }
+    .bodyEvent {
+        filter: brightness(1);
+    }
+}

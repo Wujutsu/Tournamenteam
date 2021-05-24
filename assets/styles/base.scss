@@ -1,3 +1,15 @@
+$bg-color: #E2E2E2;
+$size_sideBar: 16rem;
+$size_chatBar: 14rem;
+
+body {
+  background: $bg-color;
+}
+
+h1 {
+  margin-bottom: 10px;
+}
+
 /** NavBar **/
 #sidebarCollapse {
   margin-top: 10px;
@@ -7,8 +19,8 @@
 }
 
 .vertical-nav {
-  min-width: 17rem;
-  width: 17rem;
+  min-width: $size_sideBar;
+  width: $size_sideBar;
   height: 100vh;
   position: fixed;
   top: 0;
@@ -34,45 +46,19 @@
   }
 }
 
-/** Chat message **/
-.vertical-chat {
-  min-width: 12rem;
-  width: 12rem;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  right: 0;
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
-  transition: all 0.4s;
-  li {
-    border-bottom: 1px solid grey;
-  }
-  img {
-    border:1px solid white;
-    background-color: white;
-    width:25px;
-    height:25px;
-    border-radius:50px;
-  }
-  .pseudoUserOnline {
-    margin-top:-25px;
-    margin-left:30px;
-  }
-}
-
 li:hover {
   background-color: rgb(71, 70, 70);
 }
 
 /** Content **/
 .page-content {
-  width: calc(100% - 17rem);
-  margin-left: 17rem;
+  width: calc(100% - $size_sideBar);
+  margin-left: $size_sideBar;
   transition: all 0.4s;
 }
 
 #sidebar.active {
-  margin-left: -17rem;
+  margin-left: -$size_sideBar;
 }
 
 #content.active {
@@ -82,7 +68,7 @@ li:hover {
 
 @media (max-width: 768px) {
   #sidebar {
-    margin-left: -17rem;
+    margin-left: -$size_sideBar;
   }
   #sidebar.active {
     margin-left: 0;
@@ -92,7 +78,7 @@ li:hover {
     margin: 0;
   }
   #content.active {
-    margin-left: 17rem;
-    width: calc(100% - 17rem);
+    margin-left: $size_sideBar;
+    width: calc(100% - $size_sideBar);
   }
 }
