@@ -12,6 +12,71 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+
+        <!-- Start navbar -->
+        <button id="sidebarCollapse" type="button" class="btn btn-dark bg-dark rounded-pill shadow-sm"><i class="fa fa-bars mr-2"></i></button>
+        <div class="vertical-nav bg-dark" id="sidebar">
+            <div class="py-4 px-3">
+                <div id="boxPictureUser">
+                    <img src="{{ asset('build/default_user_pic.png') }}" alt="Profil picture">
+                </div>
+                <div class="mt-2">
+                    <h4 class="m-0 text-center text-light">#Proxiwity</h4>
+                    <p class="font-weight-light text-center text-muted mb-0">kevin.duballet@gmail.com</p>
+                </div>
+            </div>
+        
+            <ul class="nav flex-column mb-0">
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-light font-italic">
+                        <i class="fas fa-calendar-alt mr-4 text-light fa-fw"></i>
+                        Événement
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-light font-italic">
+                        <i class="fa fa-users mr-4 text-light fa-fw"></i>
+                        Social
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-light font-italic">
+                        <i class="fa fa-share-alt mr-4 text-light fa-fw"></i>
+                        Partage
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-light font-italic">
+                        <i class="fa fa-address-card mr-4 text-light fa-fw"></i>
+                        Mon compte
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- End navbar -->
+        
+        <!-- Start content -->
+        <div class="page-content p-5" id="content">
+            {% block body %}{% endblock %}
+        </div>
+        <!-- End content -->
+
+        <!-- Start chat -->
+        <div class="vertical-chat bg-dark" id="chatbar">
+            <ul class="nav flex-column mb-0">
+                {% for i in 1..25 %}
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-light font-italic">
+                        <img src="{{ asset('build/default_user_pic.png') }}" alt="Profil picture">
+                        <div class="pseudoUserOnline">Chat {{ i }}</div>
+                        <div style="float: right;margin-top:-25px"><i class="fas fa-ellipsis-v"></i></div>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!-- End chat -->
+
+
     </body>
 </html>
