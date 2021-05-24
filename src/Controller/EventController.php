@@ -18,7 +18,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/event", name="event")
+     * @Route("/evenement", name="event")
      */
     public function index(): Response
     {
