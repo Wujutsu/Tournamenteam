@@ -44,10 +44,22 @@ class Event
      */
     private $created_at;
 
+    /**
+     * @ORM\OneToMany(targetEntity=GamesEvent::class, mappedBy="event", orphanRemoval=true)
+     */
+    private $gamesEvents;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="events")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function __construct()
     {
         $this->comment = new ArrayCollection();
         $this->usersEvents = new ArrayCollection();
+        $this->gamesEvents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -147,6 +159,48 @@ class Event
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GamesEvent[]
+     */
+    public function getGamesEvents(): Collection
+    {
+        return $this->gamesEvents;
+    }
+
+    public function addGamesEvent(GamesEvent $gamesEvent): self
+    {
+        if (!$this->gamesEvents->contains($gamesEvent)) {
+            $this->gamesEvents[] = $gamesEvent;
+            $gamesEvent->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGamesEvent(GamesEvent $gamesEvent): self
+    {
+        if ($this->gamesEvents->removeElement($gamesEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($gamesEvent->getEvent() === $this) {
+                $gamesEvent->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUser(): ?Users
+    {
+        return $this->user;
+    }
+
+    public function setUser(?Users $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
