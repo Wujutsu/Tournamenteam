@@ -32,15 +32,15 @@
             {% else %}
                 <div class="py-4 px-3">
                     <div class="mt-5 mb-3">
-                        <a href="http://127.0.0.1:8000/connexion"><button class="btn btn-warning form-control">Connexion</button></a>
-                        <a href="http://127.0.0.1:8000/inscription"><button class="btn btn-warning form-control mt-2">Inscription</button>
+                        <a href="{{ path('app_login')}}"><button class="btn btn-warning form-control btnConnexion">Connexion</button></a>
+                        <a href="{{ path('app_register')}}"><button class="btn btn-warning form-control mt-2">Inscription</button>
                     </div>
                 </div>
             {% endif %}
         
             <ul class="nav flex-column mb-0">
                 <li class="nav-item">
-                    <a href="http://127.0.0.1:8000/evenement" class="nav-link text-light font-italic">
+                    <a href="{{ path('event') }}" class="nav-link text-light font-italic">
                         <i class="fas fa-calendar-alt mr-4 text-light fa-fw"></i>
                         Événement
                     </a>

@@ -1,0 +1,67 @@
+#login {
+    margin: auto;
+    border-radius: 20px;
+    width:65%;
+    padding-bottom: 30px;
+    .champAuth {
+        text-align: center;
+        color: white;
+        margin:auto;
+        width: 250px;
+        height: 50px;
+        margin-top: 20px;
+        border-radius: 20px;
+        background: rgba($color: #000000, $alpha: 0);
+        border: 3px solid $color_yellow;
+        outline: none;
+        transition: all 0.4s;
+    }
+    .champAuth:focus {
+        color: white;
+        background: rgba($color: #000000, $alpha: 0);
+        border: 3px solid $color_blue;
+        box-shadow: 0 0 3px $color_blue;
+        width: 275px;
+    }
+    .errorMessage {
+        text-align: center;
+        margin-top: 15px;
+        color: rgb(189, 42, 42);
+        font-weight: 600;
+        a {
+            color: grey;
+        }
+    }
+    .checkbox {
+        width: fit-content;
+        margin: auto;
+        margin-top: 20px;
+        input[type=checkbox] {
+            width: 20px;
+            height: 20px;
+        }   
+        .labCheckbox {
+            margin-top: -28px;
+            margin-left: 25px;
+        }
+    }
+    #btnLogin, #btnRegister {
+        display: block;
+        margin:auto;
+        margin-top: 20px;
+        width: 175px;
+        border-radius: 25px;
+    }
+    .errorReturn {
+        width: fit-content;
+        border: 1px solid red;
+        background-color: red;
+    }
+}
+
+@media (max-width: 600px) {
+    #login {
+        margin: auto;
+        width: 100%;
+    }
+}
