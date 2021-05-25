@@ -48,9 +48,15 @@ class Users implements UserInterface
      */
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UsersEvent::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $usersEvents;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->usersEvents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -170,6 +176,36 @@ class Users implements UserInterface
             // set the owning side to null (unless already changed)
             if ($comment->getUsers() === $this) {
                 $comment->setUsers(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UsersEvent[]
+     */
+    public function getUsersEvents(): Collection
+    {
+        return $this->usersEvents;
+    }
+
+    public function addUsersEvent(UsersEvent $usersEvent): self
+    {
+        if (!$this->usersEvents->contains($usersEvent)) {
+            $this->usersEvents[] = $usersEvent;
+            $usersEvent->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsersEvent(UsersEvent $usersEvent): self
+    {
+        if ($this->usersEvents->removeElement($usersEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($usersEvent->getUser() === $this) {
+                $usersEvent->setUser(null);
             }
         }
 

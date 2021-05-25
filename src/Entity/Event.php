@@ -34,9 +34,20 @@ class Event
      */
     private $comment;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UsersEvent::class, mappedBy="event", orphanRemoval=true)
+     */
+    private $usersEvents;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $created_at;
+
     public function __construct()
     {
         $this->comment = new ArrayCollection();
+        $this->usersEvents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -94,6 +105,48 @@ class Event
                 $comment->setEvent(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UsersEvent[]
+     */
+    public function getUsersEvents(): Collection
+    {
+        return $this->usersEvents;
+    }
+
+    public function addUsersEvent(UsersEvent $usersEvent): self
+    {
+        if (!$this->usersEvents->contains($usersEvent)) {
+            $this->usersEvents[] = $usersEvent;
+            $usersEvent->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsersEvent(UsersEvent $usersEvent): self
+    {
+        if ($this->usersEvents->removeElement($usersEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($usersEvent->getEvent() === $this) {
+                $usersEvent->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }
