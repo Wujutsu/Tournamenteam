@@ -2,7 +2,9 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta name="description" content="La description (meta-description) de la page ici" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -16,15 +18,25 @@
         <!-- Start navbar -->
         <button id="sidebarCollapse" type="button" class="btn btn-dark bg-dark rounded-pill shadow-sm"><i class="fa fa-bars mr-2"></i></button>
         <div class="vertical-nav bg-dark" id="sidebar">
-            <div class="py-4 px-3">
-                <div id="boxPictureUser">
-                    <img src="{{ asset('build/default_user_pic.png') }}" alt="Profil picture">
+            {% if app.user.roles[0] is defined %}
+                <div class="py-4 px-3">
+                    <div id="boxPictureUser">
+                        <img src="{{ asset('build/default_user_pic.png') }}" alt="Profil picture">
+                    </div>
+                    <div class="mt-2">
+                        <h4 class="m-0 text-center text-light">#{{ app.user.pseudo }}</h4>
+                        <p class="font-weight-light text-center text-muted mb-0">{{ app.user.email }}</p>
+                        <a href="http://127.0.0.1:8000/deconnexion"><button class="btn btn-warning form-control mt-2">Déconnexion</button></a>
+                    </div>
                 </div>
-                <div class="mt-2">
-                    <h4 class="m-0 text-center text-light">#Proxiwity</h4>
-                    <p class="font-weight-light text-center text-muted mb-0">kevin.duballet@gmail.com</p>
+            {% else %}
+                <div class="py-4 px-3">
+                    <div class="mt-5 mb-3">
+                        <a href="http://127.0.0.1:8000/connexion"><button class="btn btn-warning form-control">Connexion</button></a>
+                        <a href="http://127.0.0.1:8000/inscription"><button class="btn btn-warning form-control mt-2">Inscription</button>
+                    </div>
                 </div>
-            </div>
+            {% endif %}
         
             <ul class="nav flex-column mb-0">
                 <li class="nav-item">
@@ -51,6 +63,14 @@
                         Mon compte
                     </a>
                 </li>
+                {% if app.user.roles[0] is defined and app.user.roles[0] == "ROLE_ADMIN" %}
+                    <li class="nav-item">
+                        <a href="#" class="nav-link text-light font-italic">
+                            <i class="fas fa-cogs mr-4 text-light fa-fw"></i>
+                            Administration
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
         <!-- End navbar -->
