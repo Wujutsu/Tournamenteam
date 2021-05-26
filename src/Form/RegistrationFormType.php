@@ -19,10 +19,19 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('pseudo', TextType::class, [
-                'attr' => ['class' => 'form-control champAuth', 'placeholder' => 'Pseudo', 'autofocus' => 'true', 'autocomplete' => 'off'],
+                'attr' => [
+                    'class' => 'form-control champAuth', 
+                    'placeholder' => 'Pseudo', 
+                    'autofocus' => 'true', 
+                    'autocomplete' => 'off'
+                ],
             ])
             ->add('email', TextType::class, [
-                'attr' => ['class' => 'form-control champAuth', 'placeholder' => 'Email', 'autocomplete' => 'off'],
+                'attr' => [
+                    'class' => 'form-control champAuth', 
+                    'placeholder' => 'Email', 
+                    'autocomplete' => 'off'
+                ],
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
@@ -35,7 +44,11 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('plainPassword', PasswordType::class, [
                 'mapped' => false,
-                'attr' => ['class' => 'form-control champAuth', 'autocomplete' => 'new-password', 'placeholder' => 'Mot de passe'],
+                'attr' => [
+                    'class' => 'form-control champAuth', 
+                    'autocomplete' => 'new-password', 
+                    'placeholder' => 'Mot de passe'
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez entrer un mot de passe',

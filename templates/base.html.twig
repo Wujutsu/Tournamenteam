@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <meta name="description" content="La description (meta-description) de la page ici" />
@@ -12,7 +12,7 @@
     <body>
 
         <!-- Start navbar -->
-        <button id="sidebarCollapse" type="button" class="btn btn-dark bg-dark rounded-pill shadow-sm"><i class="fa fa-bars mr-2"></i></button>
+        <button id="sidebarCollapse" aria-label="Navigation Bar" type="button" class="btn btn-dark bg-dark rounded-pill shadow-sm"><i class="fa fa-bars mr-2"></i></button>
         <div class="vertical-nav bg-dark" id="sidebar">
             {% if app.user.roles[0] is defined %}
                 <div class="py-4 px-3">
@@ -21,15 +21,14 @@
                     </div>
                     <div class="mt-2">
                         <h4 class="m-0 text-center text-light">#{{ app.user.pseudo }}</h4>
-                        <p class="font-weight-light text-center text-muted mb-0">{{ app.user.email }}</p>
-                        <a href="{{ path('app_logout')}}"><button class="btn btn-warning btnDeconnexion form-control mt-2"><i class="fas fa-power-off"></i></button></a>
+                        <a href="{{ path('app_logout')}}"><button aria-label="Logout" class="btn btn-warning btnDeconnexion form-control mt-2">Déconnexion</button></a>
                     </div>
                 </div>
             {% else %}
                 <div class="py-4 px-3">
                     <div class="mt-5 mb-3">
-                        <a href="{{ path('app_login')}}"><button class="btn btn-warning form-control btnConnexion">Connexion</button></a>
-                        <a href="{{ path('app_register')}}"><button class="btn btn-warning form-control mt-2">Inscription</button>
+                        <a href="{{ path('app_login')}}"><button aria-label="Login" class="btn btn-warning form-control btnConnexion">Connexion</button></a>
+                        <a href="{{ path('app_register')}}"><button aria-label="Register" class="btn btn-warning form-control mt-2">Inscription</button>
                     </div>
                 </div>
             {% endif %}

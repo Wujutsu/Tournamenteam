@@ -19,6 +19,20 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
+    /**
+    * @return Event[]Games[] Returns an array of Event and Games objects
+    */
+    public function findAllEventGame()
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+        ->select('g.name, g.name_img')
+        ->from('App\Entity\Event', 'e')
+        ->leftJoin('e.game','g')
+        ->orderBy('e.created_at', 'asc')
+        ->getQuery()
+        ->getResult();
+    }
+
     // /**
     //  * @return Event[] Returns an array of Event objects
     //  */

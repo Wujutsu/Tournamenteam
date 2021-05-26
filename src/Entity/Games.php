@@ -35,13 +35,13 @@ class Games
     private $name_img;
 
     /**
-     * @ORM\OneToMany(targetEntity=GamesEvent::class, mappedBy="game", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="game", orphanRemoval=true)
      */
-    private $gamesEvents;
+    private $events;
 
     public function __construct()
     {
-        $this->gamesEvents = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -86,32 +86,33 @@ class Games
     }
 
     /**
-     * @return Collection|GamesEvent[]
+     * @return Collection|Event[]
      */
-    public function getGamesEvents(): Collection
+    public function getEvents(): Collection
     {
-        return $this->gamesEvents;
+        return $this->events;
     }
 
-    public function addGamesEvent(GamesEvent $gamesEvent): self
+    public function addEvent(Event $event): self
     {
-        if (!$this->gamesEvents->contains($gamesEvent)) {
-            $this->gamesEvents[] = $gamesEvent;
-            $gamesEvent->setGame($this);
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setGame($this);
         }
 
         return $this;
     }
 
-    public function removeGamesEvent(GamesEvent $gamesEvent): self
+    public function removeEvent(Event $event): self
     {
-        if ($this->gamesEvents->removeElement($gamesEvent)) {
+        if ($this->events->removeElement($event)) {
             // set the owning side to null (unless already changed)
-            if ($gamesEvent->getGame() === $this) {
-                $gamesEvent->setGame(null);
+            if ($event->getGame() === $this) {
+                $event->setGame(null);
             }
         }
 
         return $this;
     }
+
 }

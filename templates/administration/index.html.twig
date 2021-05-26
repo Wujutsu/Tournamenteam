@@ -15,7 +15,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Ajouter un jeu vidéo</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" aria-label="Close modal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 {{ form_start(addGamesForm) }}
@@ -32,7 +32,7 @@
                         {{ form_widget(addGamesForm.name_img) }}
                     </div>
                     <div class="col-12 mt-4">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        <button type="button" aria-label="Close modal" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
                         {{ form_widget(addGamesForm.save) }}
                     </div>
                 </div>
@@ -50,7 +50,7 @@
     <div class="col-lg-6 mb-4">
         <div class="cadreAdmin">
             <h3>Jeux Vidéos</h3>
-            <button class="btn btn-primary btnAdd" data-bs-toggle="modal" data-bs-target="#modalAddGame">Ajouter</button>
+            <button class="btn btn-primary btnAdd" aria-label="Add game"  data-bs-toggle="modal" data-bs-target="#modalAddGame">Ajouter</button>
             <div class="mt-4">
                 <div class="table-responsive">
                     <table class="table" id="tableGames">
@@ -68,7 +68,7 @@
                                 <td>{{ var.name }}</td>
                                 <td>{{ var.description }}</td>
                                 <td>{{ var.nameImg }}</td>
-                                <td><button class="btn btn-danger btnDeleteGame" data-id="{{ var.id }}" data-name="{{ var.name }}"><i class="fas fa-trash"></i></button></td>
+                                <td><button class="btn btn-danger btnDeleteGame" aria-label="delete game" data-id="{{ var.id }}" data-name="{{ var.name }}"><i class="fas fa-trash"></i></button></td>
                             </tr>
                             {% endfor %}
                         </body>

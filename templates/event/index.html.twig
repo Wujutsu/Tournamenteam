@@ -9,24 +9,62 @@
 
 {% block body %}
 
-<h1>Événement à venir</h1>
+<!-- Start modal add event -->
+<div class="modal fade" id="modalAddEvent" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Ajouter un événement</h5>
+                <button type="button" class="btn-close" aria-label="Close modal" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(addEventForm) }}
+                <div class="row">
+                    <div class="col-12">
+                        {{ form_label(addEventForm.title) }}
+                        {{ form_widget(addEventForm.title) }}
+                    </div>
+                    <div class="col-12 mt-2">
+                        {{ form_label(addEventForm.observation) }}
+                        {{ form_widget(addEventForm.observation) }}
+                    </div>
+                    <div class="col-sm-4 mt-2">
+                        {{ form_label(addEventForm.nb_player) }}
+                        {{ form_widget(addEventForm.nb_player) }}
+                    </div>
+                    <div class="col-sm-8 mt-2">
+                        {{ form_label(addEventForm.game) }}
+                        {{ form_widget(addEventForm.game) }}
+                    </div>
+                    <div class="col-12 mt-4">
+                        <button type="button" aria-label="Close modal" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        {{ form_widget(addEventForm.save) }}
+                    </div>
+                </div>
+                {{ form_end(addEventForm) }}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End modal add games -->
 
 <div class="row">
+
     <div class="col-12">
-            <div class="filtre-active">League of Legend</div>
-            {% for i in 0..5 %}
-            <div class="filtre">League of Legend</div>
-        {% endfor %}
+        <h1>Événement à venir</h1>
+        {% if app.user.roles[0] == "ROLE_ORGANIZER" or app.user.roles[0] == "ROLE_ADMIN" %}
+            <button class="btn btn-primary" id="btnAddEvent" aria-label="Add event" data-bs-toggle="modal" data-bs-target="#modalAddEvent">Créer un événement</button>
+        {% endif %}
     </div>
 
     <div class="col-12 mt-4"></div>
 
-    {#{% for i in 0..6 %}
+    {% for var in showEventGame %}
     <div class="col-lg-3 col-md-6 col-sm-6 cadreEvent">
-        <img src="{{ asset('build/games/lol.jpg') }}" alt="Event">
-        <div class="bodyEvent">League of Legend</div>
+        <img src="{{ asset('images/games/' ~ var.name_img) }}" alt="Event">
+        <div class="bodyEvent">{{ var.name }}</div>
     </div>
-    {% endfor %}#}
+    {% endfor %}
 </div>
 
 {% endblock %}
