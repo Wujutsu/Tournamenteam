@@ -6,6 +6,8 @@ use App\Entity\Games;
 use App\Entity\Users;
 use App\Form\AddGamesFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,7 +26,7 @@ class AdministrationController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $games = $form->getData();
             
-            //On enregistre l'image
+            //Save picture
             $file = $form['name_img']->getData();
             $file->move('images/games', $file->getClientOriginalName());
             $games->setNameImg($file->getClientOriginalName());
@@ -47,6 +49,30 @@ class AdministrationController extends AbstractController
             'showGames' => $showGames,
             'showUsers' => $showUsers
         ]);
+    }
+
+    /**
+     * @Route("/ajax/deleteGame", name="ajax_delete_game")
+     */
+    public function deleteGame(Request $request)
+    {
+        if ($request->isXmlHttpRequest() || $request->query->get('showJson') == 1) {  
+            $return = false;
+            $entityManager = $this->getDoctrine()->getManager();
+            $games = $entityManager->getRepository(Games::class)->find($request->request->get('id'));
+            
+            if ($games) {
+                $fileSystem = new Filesystem();
+                $fileSystem->remove('images/games/'.$games->getNameImg());
+                $entityManager->remove($games);
+                $entityManager->flush();
+                $return = true;
+            }
+
+            return new JsonResponse($return);
+        } else {
+            return $this->redirectToRoute('event');
+        }
     }
 
 }

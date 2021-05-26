@@ -71,3 +71,19 @@ $("#tableUsers").DataTable({
     "order": [[ 0, "asc" ]],
     "aoColumnDefs" : [ { 'bSortable' : false, 'aTargets' : [] } ]
 });
+
+//Delete a game
+$(".btnDeleteGame").on("click", function(){
+    if(confirm("Confirmer la suppression du jeu \"" + $(this).attr("data-name") + "\"")){
+        $.ajax({
+            type: "POST",
+            url: "/ajax/deleteGame",
+            data: {
+                id : $(this).attr("data-id")
+            },
+            success: function (response) {
+                response == true ? location.reload() : alert("Impossible de supprimer le jeu");
+            }
+        });
+    }
+});

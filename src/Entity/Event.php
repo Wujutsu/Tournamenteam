@@ -55,6 +55,11 @@ class Event
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $nb_player;
+
     public function __construct()
     {
         $this->comment = new ArrayCollection();
@@ -201,6 +206,18 @@ class Event
     public function setUser(?Users $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getNbPlayer(): ?int
+    {
+        return $this->nb_player;
+    }
+
+    public function setNbPlayer(int $nb_player): self
+    {
+        $this->nb_player = $nb_player;
 
         return $this;
     }

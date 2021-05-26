@@ -17,11 +17,13 @@ class AddGamesFormType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
+                'label' => 'Nom',
                 'attr' => [
                     'class' => 'form-control'
                     ]
             ])
             ->add('description', TextareaType::class, [
+                'label' => 'Description',
                 'attr' => [
                     'class' => 'form-control'
                     ]

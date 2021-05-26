@@ -24,11 +24,11 @@
                         {{ form_label(addGamesForm.name) }}
                         {{ form_widget(addGamesForm.name) }}
                     </div>
-                    <div class="col-12 mt-3">
+                    <div class="col-12 mt-2">
                         {{ form_label(addGamesForm.description) }}
                         {{ form_widget(addGamesForm.description) }}
                     </div>
-                    <div class="col-12 mt-4">
+                    <div class="col-12 mt-3">
                         {{ form_widget(addGamesForm.name_img) }}
                     </div>
                     <div class="col-12 mt-4">
@@ -68,7 +68,7 @@
                                 <td>{{ var.name }}</td>
                                 <td>{{ var.description }}</td>
                                 <td>{{ var.nameImg }}</td>
-                                <td><button class="btn btn-danger"><i class="fas fa-trash"></i></button></td>
+                                <td><button class="btn btn-danger btnDeleteGame" data-id="{{ var.id }}" data-name="{{ var.name }}"><i class="fas fa-trash"></i></button></td>
                             </tr>
                             {% endfor %}
                         </body>
