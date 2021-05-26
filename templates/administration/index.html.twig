@@ -9,21 +9,40 @@
 
 {% block body %}
 
+<!-- Start modal -->
+<button type="button" id="openModal" class="d-none" data-bs-toggle="modal" data-bs-target="#modal"></button>
+<div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body"></div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            <button type="button" class="btn btn-primary">Ajouter</button>
+        </div>
+        </div>
+    </div>
+</div>
+<!-- End modal -->
+
 <div class="row">
 
-    <div class="col-lg-3 mb-4">
+    {#<div class="col-lg-3 mb-4">
         <div class="cadreAdmin">
             <h3 class="text-center">En ligne</h3>
             <div class="enLigne bg-success">2</div>
         </div>
-    </div>
+    </div>#}
 
     <div class="col-12"></div>
 
     <div class="col-lg-6 mb-4">
         <div class="cadreAdmin">
             <h3>Jeux Vidéos</h3>
-            <div class="statsTitle">Total : 4</div>
+            <button class="btn btn-primary btnAdd" id="btnAddGames">Ajouter</button>
             <div class="mt-4">
                 <div class="table-responsive">
                     <table class="table" id="tableGames">
@@ -36,14 +55,12 @@
                             </tr>
                         </thead>
                         <body>
-                            {% for i in 0..6 %}
-                                <tr>
-                                    <td>League of Legend</td>
-                                    <td>Donec rutrum congue leo eget malesuada. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-                                    <td>lol.jpg</td>
-                                    <td><button class="btn btn-danger"><i class="fas fa-trash"></i></button></td>
-                                </tr>
-                            {% endfor %}
+                            {#<tr>
+                                <td>League of Legend</td>
+                                <td>Donec rutrum congue leo eget malesuada. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+                                <td>lol.jpg</td>
+                                <td><button class="btn btn-danger"><i class="fas fa-trash"></i></button></td>
+                            </tr>#}
                         </body>
                     </table>
                 </div>
@@ -54,7 +71,7 @@
     <div class="col-lg-6 mb-4">
         <div class="cadreAdmin">
             <h3>Utilisateurs</h3>
-            <div class="statsTitle">Total : 106</div>
+            <button class="btn btn-primary btnAdd">Ajouter</button>
             <div class="mt-4">
                 <div class="table-responsive">
                     <table class="table" id="tableUsers">
@@ -66,19 +83,17 @@
                             </tr>
                         </thead>
                         <body>
-                            {% for i in 0..15 %}
-                                <tr>
-                                    <td>Kevin</td>
-                                    <td>Kevin.duballet@mail.com</td>
-                                    <td>
-                                        <select class="form-control">
-                                            <option value="ROLE_PLAYER">PLAYER</option>
-                                            <option value="ROLE_ORGANIZER">ORGANIZER</option>
-                                            <option value="ROLE_ADMIN">ADMIN</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                            {% endfor %}
+                            {#<tr>
+                                <td>Kevin</td>
+                                <td>Kevin.duballet@mail.com</td>
+                                <td>
+                                    <select class="form-control">
+                                        <option value="ROLE_PLAYER">PLAYER</option>
+                                        <option value="ROLE_ORGANIZER">ORGANIZER</option>
+                                        <option value="ROLE_ADMIN">ADMIN</option>
+                                    </select>
+                                </td>
+                            </tr>#}
                         </body>
                     </table>
                 </div>

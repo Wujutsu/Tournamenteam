@@ -1,6 +1,7 @@
 import '../styles/administration.scss';
 import 'datatables.net-bs4';
 
+//DataTable
 $("#tableGames").DataTable({
     "language":{
         sProcessing: "Traitement en cours...",
@@ -69,4 +70,13 @@ $("#tableUsers").DataTable({
     "pageLength": 10,
     "order": [[ 0, "asc" ]],
     "aoColumnDefs" : [ { 'bSortable' : false, 'aTargets' : [] } ]
+});
+
+//Add new Games
+$("#btnAddGames").on("click", function(){
+    $.get("/modal/modalAddGames", function(data){
+        $(".modal-body").html(data);
+        $(".modal-title").html("Ajouter un jeu vidéo");
+        $("#openModal").click();
+    });
 });

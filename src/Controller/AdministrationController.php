@@ -17,4 +17,12 @@ class AdministrationController extends AbstractController
             'controller_name' => 'AdministrationController',
         ]);
     }
+
+    /**
+     * @Route("/modal/modalAddGames", name="modalAddGames")
+     */
+    public function modalAddGames(): Response
+    {
+        return $this->render('administration/modalAddGames.html.twig', []);
+    }
 }
