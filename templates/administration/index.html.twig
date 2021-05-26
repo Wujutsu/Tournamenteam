@@ -9,40 +9,48 @@
 
 {% block body %}
 
-<!-- Start modal -->
-<button type="button" id="openModal" class="d-none" data-bs-toggle="modal" data-bs-target="#modal"></button>
-<div class="modal fade" id="modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!-- Start modal add games -->
+<div class="modal fade" id="modalAddGame" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="staticBackdropLabel"></h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body"></div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-            <button type="button" class="btn btn-primary">Ajouter</button>
-        </div>
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Ajouter un jeu vidéo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{ form_start(addGamesForm) }}
+                <div class="row">
+                    <div class="col-12">
+                        {{ form_label(addGamesForm.name) }}
+                        {{ form_widget(addGamesForm.name) }}
+                    </div>
+                    <div class="col-12 mt-3">
+                        {{ form_label(addGamesForm.description) }}
+                        {{ form_widget(addGamesForm.description) }}
+                    </div>
+                    <div class="col-12 mt-4">
+                        {{ form_widget(addGamesForm.name_img) }}
+                    </div>
+                    <div class="col-12 mt-4">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        {{ form_widget(addGamesForm.save) }}
+                    </div>
+                </div>
+                {{ form_end(addGamesForm) }}
+            </div>
         </div>
     </div>
 </div>
-<!-- End modal -->
+<!-- End modal add games -->
 
 <div class="row">
-
-    {#<div class="col-lg-3 mb-4">
-        <div class="cadreAdmin">
-            <h3 class="text-center">En ligne</h3>
-            <div class="enLigne bg-success">2</div>
-        </div>
-    </div>#}
 
     <div class="col-12"></div>
 
     <div class="col-lg-6 mb-4">
         <div class="cadreAdmin">
             <h3>Jeux Vidéos</h3>
-            <button class="btn btn-primary btnAdd" id="btnAddGames">Ajouter</button>
+            <button class="btn btn-primary btnAdd" data-bs-toggle="modal" data-bs-target="#modalAddGame">Ajouter</button>
             <div class="mt-4">
                 <div class="table-responsive">
                     <table class="table" id="tableGames">
@@ -55,12 +63,14 @@
                             </tr>
                         </thead>
                         <body>
-                            {#<tr>
-                                <td>League of Legend</td>
-                                <td>Donec rutrum congue leo eget malesuada. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-                                <td>lol.jpg</td>
+                            {% for var in showGames %}
+                            <tr>
+                                <td>{{ var.name }}</td>
+                                <td>{{ var.description }}</td>
+                                <td>{{ var.nameImg }}</td>
                                 <td><button class="btn btn-danger"><i class="fas fa-trash"></i></button></td>
-                            </tr>#}
+                            </tr>
+                            {% endfor %}
                         </body>
                     </table>
                 </div>
@@ -71,7 +81,6 @@
     <div class="col-lg-6 mb-4">
         <div class="cadreAdmin">
             <h3>Utilisateurs</h3>
-            <button class="btn btn-primary btnAdd">Ajouter</button>
             <div class="mt-4">
                 <div class="table-responsive">
                     <table class="table" id="tableUsers">
@@ -83,17 +92,13 @@
                             </tr>
                         </thead>
                         <body>
-                            {#<tr>
-                                <td>Kevin</td>
-                                <td>Kevin.duballet@mail.com</td>
-                                <td>
-                                    <select class="form-control">
-                                        <option value="ROLE_PLAYER">PLAYER</option>
-                                        <option value="ROLE_ORGANIZER">ORGANIZER</option>
-                                        <option value="ROLE_ADMIN">ADMIN</option>
-                                    </select>
-                                </td>
-                            </tr>#}
+                            {% for var in showUsers %}
+                            <tr>
+                                <td>{{ var.pseudo }}</td>
+                                <td>{{ var.email }}</td>
+                                <td>{{ var.roles[0] }}</td>
+                            </tr>
+                            {% endfor %}
                         </body>
                     </table>
                 </div>

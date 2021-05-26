@@ -71,12 +71,3 @@ $("#tableUsers").DataTable({
     "order": [[ 0, "asc" ]],
     "aoColumnDefs" : [ { 'bSortable' : false, 'aTargets' : [] } ]
 });
-
-//Add new Games
-$("#btnAddGames").on("click", function(){
-    $.get("/modal/modalAddGames", function(data){
-        $(".modal-body").html(data);
-        $(".modal-title").html("Ajouter un jeu vidéo");
-        $("#openModal").click();
-    });
-});
