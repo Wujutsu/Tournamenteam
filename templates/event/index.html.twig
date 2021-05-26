@@ -2,6 +2,11 @@
 
 {% block title %}Événement{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('event') }}
+{% endblock %}
+
 {% block body %}
 
 <h1>Événement à venir</h1>
@@ -24,4 +29,9 @@
     {% endfor %}
 </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('event') }}
 {% endblock %}

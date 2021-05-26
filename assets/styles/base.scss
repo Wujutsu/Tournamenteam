@@ -1,7 +1,25 @@
-body {
-  background: #E2E2E2;
+@import "variable";
+@import "bootstrap";
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
+
+/****************** Custom Bootstrap ******************/
+.btn-warning {
+  background: $color_yellow;
+}
+.btn-primary {
+  background: $color_blue;
+  border: 2px solid $color_blue;
+}
+.btn-primary:hover, .btn-primary:focus {
+  background: $color_blueBis;
+  border: 2px solid $color_blueBis;
 }
 
+/****************** CSS base.html.twig ******************/
+body {
+  background: #c0c0c0;
+}
+  
 .blur {
   filter: blur(2px);
 }

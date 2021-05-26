@@ -1,4 +1,5 @@
-const $ = require('jquery');
+import '../styles/base.scss';
+import 'jquery';
 
 //NavBar
 $('#sidebarCollapse').on('click', function() {

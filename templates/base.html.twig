@@ -6,11 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
+            {{ encore_entry_link_tags('base') }}
         {% endblock %}
     </head>
     <body>
@@ -65,7 +61,7 @@
                 </li>
                 {% if app.user.roles[0] is defined and app.user.roles[0] == "ROLE_ADMIN" %}
                     <li class="nav-item">
-                        <a href="#" class="nav-link text-light font-italic">
+                        <a href="{{ path('administration') }}" class="nav-link text-light font-italic">
                             <i class="fas fa-cogs mr-4 text-light fa-fw"></i>
                             Administration
                         </a>
@@ -76,10 +72,13 @@
         <!-- End navbar -->
         
         <!-- Start content -->
-        <div class="page-content p-5" id="content">
+        <div class="page-content p-4 pt-5" id="content">
             {% block body %}{% endblock %}
         </div>
         <!-- End content -->
 
+        {% block javascripts %}
+            {{ encore_entry_script_tags('base') }}
+        {% endblock %}
     </body>
 </html>
