@@ -19,6 +19,18 @@ class UsersEventRepository extends ServiceEntityRepository
         parent::__construct($registry, UsersEvent::class);
     }
 
+    public function findAllRegisteredPlayerOfEvent($idEvent)
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+        ->select('u.Pseudo')
+        ->from('App\Entity\UsersEvent', 'ue')
+        ->leftJoin('ue.user', 'u')
+        ->andWhere('ue.event = :val1')
+        ->setParameter('val1', $idEvent)
+        ->getQuery()
+        ->getResult();
+    }
+
     // /**
     //  * @return UsersEvent[] Returns an array of UsersEvent objects
     //  */

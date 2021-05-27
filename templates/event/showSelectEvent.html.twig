@@ -20,7 +20,7 @@
             </h1>
         <h4><i class="fas fa-gamepad color-blue"></i> {{ showEventGame.name }}</h4>
         <div class="h5" id="dateCreation">{{ showEventGame.created_at|format_datetime('short', 'none', locale='fr') }}</div>
-        <div id="nbPlayer">Participants : 6/10</div>
+        <div id="nbPlayer">Participants : {{ showAllRegisteredPlayerOfEvent | length }}/{{ showEventGame.nb_player }}</div>
     </div>
     <div class="col-lg-6 col-md-12 mt-2">
         <div class="text-justify">{{ showEventGame.observation }}</div>
@@ -30,15 +30,27 @@
 
     <div class="col-lg-12 mb-3">
         <h4 class="color-yellow">Liste des participants</h4>
-        <button class="btn btn-primary mt-1 mb-3" aria-label="inscription">Inscription</button>
-        <div class="row p-2">
-            {% for i in 0..3 %}
-            <div class="cadrePlayer col-xs">
-                <img src="{{ asset('build/default_user_pic.png') }}" alt="Player Picture">
-                <div class="pseudo">Wujutsu</div>
+        {% if userAlreadyRegistered|length == 0 %}
+            {{ form_start(participateForm) }}
+                {{ form_widget(participateForm.save) }}
+            {{ form_end(participateForm) }}
+        {% else %}
+            {{ form_start(unParticipateForm) }}
+                {{ form_widget(unParticipateForm.delete) }}
+            {{ form_end(unParticipateForm) }}
+        {% endif %}
+        {% if showAllRegisteredPlayerOfEvent|length > 0 %}
+            <div class="row p-2">
+                {% for var in showAllRegisteredPlayerOfEvent %}
+                <div class="cadrePlayer col-xs">
+                    <img src="{{ asset('build/default_user_pic.png') }}" alt="Player Picture">
+                    <div class="pseudo">{{ var.Pseudo }}</div>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
+        {% else %}
+            <div class="h5 text-light">Aucun Participant</div>
+        {% endif %}
     </div>
 
     <div class="col-lg-8">
@@ -64,8 +76,6 @@
             </div>
         {% endfor %}
     </div>
-
-
 
 </div>
 
