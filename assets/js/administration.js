@@ -1,5 +1,6 @@
 import '../styles/administration.scss';
 import 'datatables.net-bs4';
+const $ = require('jquery');
 
 //DataTable
 $("#tableGames").DataTable({

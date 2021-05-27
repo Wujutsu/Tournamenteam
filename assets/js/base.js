@@ -1,6 +1,6 @@
 import '../styles/base.scss';
-import 'jquery';
 import 'bootstrap';
+const $ = require('jquery');
 
 //NavBar
 $('#sidebarCollapse').on('click', function() {
