@@ -89,7 +89,7 @@ class EventController extends AbstractController
         $userAlreadyRegistered = $this->getDoctrine()->getRepository(UsersEvent::class)
         ->findBy(['user' => $this->getUser()->getId(), 'event' => $idEvent]);
 
-        //Form to register a playerr at event
+        //Form to register a player at event
         $usersEvent = new UsersEvent();
         $formParticipate = $this->createForm(AddParticipationFormType::class);
         $formParticipate->handleRequest($request);

@@ -25,7 +25,7 @@ class EventRepository extends ServiceEntityRepository
         ->select('e.id, e.title, e.observation, e.nb_player, e.etat, g.name, g.name_img')
         ->from('App\Entity\Event', 'e')
         ->leftJoin('e.game','g')
-        ->orderBy('e.created_at', 'asc')
+        ->orderBy('e.created_at', 'desc')
         ->getQuery()
         ->getResult();
     }
@@ -38,7 +38,6 @@ class EventRepository extends ServiceEntityRepository
         ->leftJoin('e.game','g')
         ->andWhere('e.id = :val1')
         ->setParameter('val1', $idEvent)
-        ->orderBy('e.created_at', 'asc')
         ->getQuery()
         ->getOneOrNullResult();
     }

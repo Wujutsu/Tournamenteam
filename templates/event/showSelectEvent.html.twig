@@ -16,7 +16,7 @@
     <div class="col-12 mb-2">
         <h1 class="color-yellow">
                 <a href="{{ path('event') }}"><button aria-label="Back" class="btn btn-light btnRetour"><i class="fas fa-long-arrow-alt-left"></i></button></a>
-                {{ showEventGame.title }} <span id="nbPlayerPortable">(6/10)</span>
+                {{ showEventGame.title }} <span id="nbPlayerPortable">({{ showAllRegisteredPlayerOfEvent | length }}/{{ showEventGame.nb_player }})</span>
             </h1>
         <h4><i class="fas fa-gamepad color-blue"></i> {{ showEventGame.name }}</h4>
         <div class="h5" id="dateCreation">{{ showEventGame.created_at|format_datetime('short', 'none', locale='fr') }}</div>
