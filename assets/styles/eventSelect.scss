@@ -1,0 +1,50 @@
+@import "variable";
+
+#backgroundGame {
+    z-index:-100;
+    position:fixed;
+    background:center / cover no-repeat;
+    filter: brightness(0.2);
+    width:100%;
+    min-height:100%;
+    left:0;
+    top:0;
+}
+#dateCreation {
+    float: right;
+    margin-top: -72px;
+}
+#nbPlayer {
+    float: right;
+    margin-top: -45px;
+}
+@media (max-width: 550px) {
+    #dateCreation, #nbPlayer {
+        display: none;
+    }
+}
+.cadrePlayer {
+    background: rgba($color: #ffffff, $alpha: 0.7);
+    width: 230px;
+    height: 50px;
+    border-radius: 5px;
+    margin: 5px;
+    img {
+        width:32px;
+        height:32px;
+        margin-top: 9px;
+        margin-left: 9px;
+    }
+    .pseudo {
+        color: black;
+        margin-top:-31px;
+        margin-left: 50px;
+        font-weight: 700;
+        font-size: 20px;
+    }
+}
+@media (max-width: 520px) {
+    .cadrePlayer {
+        width: 97%;
+    }
+}

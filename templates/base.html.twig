@@ -13,14 +13,14 @@
 
         <!-- Start navbar -->
         <button id="sidebarCollapse" aria-label="Navigation Bar" type="button" class="btn btn-dark bg-dark rounded-pill shadow-sm"><i class="fa fa-bars mr-2"></i></button>
-        <div class="vertical-nav bg-dark" id="sidebar">
+        <div class="vertical-nav" id="sidebar">
             {% if app.user.roles[0] is defined %}
                 <div class="py-4 px-3">
                     <div id="boxPictureUser">
                         <img src="{{ asset('build/default_user_pic.png') }}" alt="Profil picture">
                     </div>
                     <div class="mt-2">
-                        <h4 class="m-0 text-center text-light">#{{ app.user.pseudo }}</h4>
+                        <h4 class="m-0 text-center text-light">#{{ app.user.id }}{{ app.user.pseudo }}</h4>
                         <a href="{{ path('app_logout')}}"><button aria-label="Logout" class="btn btn-warning btnDeconnexion form-control mt-2">Déconnexion</button></a>
                     </div>
                 </div>

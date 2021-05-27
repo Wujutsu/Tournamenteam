@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Événement{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('eventSelect') }}
+{% endblock %}
+
+{% block body %}
+
+<div id="backgroundGame" style="background-image: url({{ asset('images/games/lol.jpg') }});"></div>
+
+<div class="row text-light">
+
+    <div class="col-12 mb-2">
+        <h1 class="color-yellow">Titre Evenement</h1>
+        <h4><i class="fas fa-gamepad color-blue"></i> League Of Legend</h4>
+        <div class="h5" id="dateCreation">Crée le 27/05/2021</div>
+        <div id="nbPlayer">Participants : 6/10</div>
+    </div>
+    <div class="col-lg-6 col-md-12 mt-2">
+        <div class="text-justify">Je suis une description manger rat dormir. Pourquoi je test, toujours développeur web design. Pourquoi je test, toujours développeur web design</div>
+    </div>
+
+    <div class="col-12 mt-5">
+        <h4 class="color-yellow">Liste des participants</h4>
+    </div>
+    <div class="col-lg-12">
+        <div class="row p-2">
+            {% for i in 0..3 %}
+            <div class="cadrePlayer col-xs">
+                <img src="{{ asset('build/default_user_pic.png') }}" alt="Player Picture">
+                <div class="pseudo">Wujutsu</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('eventSelect') }}
+{% endblock %}

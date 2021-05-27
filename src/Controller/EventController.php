@@ -51,4 +51,15 @@ class EventController extends AbstractController
             'showEventGame' => $showEventGame
         ]);
     }
+
+    /**
+     * @Route("/evenement/affiche", name="event_select")
+     */
+    public function eventSelect()
+    {
+        return $this->render('event/showSelectEvent.html.twig', [
+
+        ]);
+    }
+
 }

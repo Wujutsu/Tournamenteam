@@ -61,6 +61,16 @@ class Event
      */
     private $game;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $etat = false;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $date_event;
+
     public function __construct()
     {
         $this->comment = new ArrayCollection();
@@ -200,6 +210,30 @@ class Event
     public function setGame(?Games $game): self
     {
         $this->game = $game;
+
+        return $this;
+    }
+
+    public function getEtat(): ?bool
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?bool $etat): self
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getDateEvent(): ?\DateTimeInterface
+    {
+        return $this->date_event;
+    }
+
+    public function setDateEvent(?\DateTimeInterface $date_event): self
+    {
+        $this->date_event = $date_event;
 
         return $this;
     }

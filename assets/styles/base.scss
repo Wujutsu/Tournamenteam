@@ -5,6 +5,7 @@
 /****************** Custom Bootstrap ******************/
 .btn-warning {
   background: $color_yellow;
+  font-weight: bold;
 }
 .btn-primary {
   background: $color_blue;
@@ -17,14 +18,29 @@
 
 /****************** CSS base.html.twig ******************/
 body {
-  background: #c0c0c0;
+  background:#2b3035;
 }
   
 h1 {
   margin-bottom: 10px;
 }
 
+.text-justify {
+  text-align: justify;
+}
+
+.color-yellow {
+  color: $color_yellow;
+}
+
+.color-blue {
+  color: $color_blue;
+}
+
 /** NavBar **/
+#sidebar {
+  background: rgb(26, 26, 26);
+}
 #sidebarCollapse {
   margin-top: 10px;
   margin-left: 10px;

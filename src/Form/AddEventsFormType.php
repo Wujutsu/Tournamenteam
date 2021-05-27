@@ -35,7 +35,8 @@ class AddEventsFormType extends AbstractType
                 'label' => 'Nombre joueur',
                 'attr' => [
                     'class' => 'form-control',
-                    'autocomplete' => 'off'
+                    'autocomplete' => 'off',
+                    'min' => '0'
                 ]
             ])
             ->add('game', EntityType::class, [
