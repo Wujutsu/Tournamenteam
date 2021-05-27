@@ -1,5 +1,5 @@
 import '../styles/base.scss';
-import 'bootstrap';
+import 'bootstrap/js/dist/modal';
 const $ = require('jquery');
 
 //NavBar
