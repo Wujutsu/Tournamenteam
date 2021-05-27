@@ -10,6 +10,7 @@
 .btn-primary {
   background: $color_blue;
   border: 2px solid $color_blue;
+  font-weight: bold;
 }
 .btn-primary:hover, .btn-primary:focus {
   background: $color_blueBis;

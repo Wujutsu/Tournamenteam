@@ -9,24 +9,28 @@
 
 {% block body %}
 
-<div id="backgroundGame" style="background-image: url({{ asset('images/games/lol.jpg') }});"></div>
+<div id="backgroundGame" style="background-image: url({{ asset('images/games/' ~ showEventGame.name_img) }});"></div>
 
 <div class="row text-light">
 
     <div class="col-12 mb-2">
-        <h1 class="color-yellow">Titre Evenement</h1>
-        <h4><i class="fas fa-gamepad color-blue"></i> League Of Legend</h4>
-        <div class="h5" id="dateCreation">Crée le 27/05/2021</div>
+        <h1 class="color-yellow">
+                <a href="{{ path('event') }}"><button aria-label="Back" class="btn btn-light btnRetour"><i class="fas fa-long-arrow-alt-left"></i></button></a>
+                {{ showEventGame.title }} <span id="nbPlayerPortable">(6/10)</span>
+            </h1>
+        <h4><i class="fas fa-gamepad color-blue"></i> {{ showEventGame.name }}</h4>
+        <div class="h5" id="dateCreation">{{ showEventGame.created_at|format_datetime('short', 'none', locale='fr') }}</div>
         <div id="nbPlayer">Participants : 6/10</div>
     </div>
     <div class="col-lg-6 col-md-12 mt-2">
-        <div class="text-justify">Je suis une description manger rat dormir. Pourquoi je test, toujours développeur web design. Pourquoi je test, toujours développeur web design</div>
+        <div class="text-justify">{{ showEventGame.observation }}</div>
     </div>
 
-    <div class="col-12 mt-5">
+    <div class="col-12 mb-5"></div>
+
+    <div class="col-lg-12 mb-3">
         <h4 class="color-yellow">Liste des participants</h4>
-    </div>
-    <div class="col-lg-12">
+        <button class="btn btn-primary mt-1 mb-3" aria-label="inscription">Inscription</button>
         <div class="row p-2">
             {% for i in 0..3 %}
             <div class="cadrePlayer col-xs">
@@ -35,6 +39,30 @@
             </div>
             {% endfor %}
         </div>
+    </div>
+
+    <div class="col-lg-8">
+        <h4 class="color-yellow">Commentaires</h4>
+        {{ form_start(addCommentForm) }}
+            {{ form_widget(addCommentForm.comment) }}
+            {{ form_widget(addCommentForm.save) }}
+        {{ form_end(addCommentForm) }}
+        {% for var in showAllCommentsEvent %}    
+            {% set role = "" %}
+            {% if var.roles[0] == "ROLE_ADMIN" %}
+                {% set role = "[Admin]" %}
+            {% elseif var.roles[0] == "ROLE_ORGANIZER" %}
+                {% set role = "[Organisateur]" %}
+            {% endif %}
+            <div class="cadreComment">
+                <div class="head">
+                    <img src="{{ asset('build/default_user_pic.png') }}" alt="Player Picture">
+                    <div class="pseudo">{{ role}} {{ var.Pseudo }}</div>
+                    <div class="dateTime">{{ var.created_at|format_datetime(locale='fr') }}</div>
+                </div>
+                <div class="body">{{ var.comment | nl2br  }}</div>
+            </div>
+        {% endfor %}
     </div>
 
 

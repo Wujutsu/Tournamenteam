@@ -19,6 +19,19 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
+    public function findAllCommentOfEvent($idEvent)
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+        ->select('c.comment, c.created_at, u.roles, u.Pseudo')
+        ->from('App\Entity\Comment', 'c')
+        ->leftJoin('c.users', 'u')
+        ->andWhere('c.event = :val1')
+        ->setParameter('val1', $idEvent)
+        ->orderBy('c.created_at', 'desc')
+        ->getQuery()
+        ->getResult();
+    }
+
     // /**
     //  * @return Comment[] Returns an array of Comment objects
     //  */
