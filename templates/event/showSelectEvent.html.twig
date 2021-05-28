@@ -15,14 +15,17 @@
 
     <div class="col-12 mb-2">
         <h1 class="color-yellow">
-                <a href="{{ path('event') }}"><button aria-label="Back" class="btn btn-light btnRetour"><i class="fas fa-long-arrow-alt-left"></i></button></a>
-                {{ showEventGame.title }} <span id="nbPlayerPortable">({{ showAllRegisteredPlayerOfEvent | length }}/{{ showEventGame.nb_player }})</span>
-            </h1>
+            <a href="{{ path('event') }}"><button aria-label="Back" class="btn btn-light btnRetour"><i class="fas fa-long-arrow-alt-left"></i></button></a>
+            {{ showEventGame.title }} <span id="nbPlayerPortable">({{ showAllRegisteredPlayerOfEvent | length }}/{{ showEventGame.nb_player }})</span>
+        </h1>
         <h4><i class="fas fa-gamepad color-blue"></i> {{ showEventGame.name }}</h4>
-        <div class="h5" id="dateCreation">{{ showEventGame.created_at|format_datetime('short', 'none', locale='fr') }}</div>
+        <div class="h5 color-blue" id="creator">Par {{ showEventGame.creator }}</div>
         <div id="nbPlayer">Participants : {{ showAllRegisteredPlayerOfEvent | length }}/{{ showEventGame.nb_player }}</div>
     </div>
     <div class="col-lg-6 col-md-12 mt-2">
+        {% if app.user.roles[0] is defined and (app.user.roles[0] == "ROLE_ADMIN" or (app.user.roles[0] == "ROLE_ORGANIZER" and showEventGame.creator == app.user.pseudo)) %}
+            {{ form_start(deleteEventForm) }}{{ form_widget(deleteEventForm.delete) }}{{ form_end(deleteEventForm) }}
+        {% endif %}
         <div class="text-justify">{{ showEventGame.observation }}</div>
     </div>
 

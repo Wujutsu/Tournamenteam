@@ -8,6 +8,7 @@ use App\Entity\UsersEvent;
 use App\Form\AddCommentFormType;
 use App\Form\AddEventsFormType;
 use App\Form\AddParticipationFormType;
+use App\Form\DeleteEventsFormType;
 use App\Form\DeleteParticipationFormType;
 use App\Repository\CommentRepository;
 use App\Repository\EventRepository;
@@ -98,32 +99,47 @@ class EventController extends AbstractController
         $userAlreadyRegistered = $this->getDoctrine()->getRepository(UsersEvent::class)
         ->findBy(['user' => $this->getUser()->getId(), 'event' => $idEvent]);
 
+        //Form to delete Event
+        $eventDelete = new Event();
+        $formEventDelete = $this->createForm(DeleteEventsFormType::class, $eventDelete);
+        $formEventDelete->handleRequest($request);
+        if($formEventDelete->isSubmitted() && $formEventDelete->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $eventDelete = $entityManager->getRepository(Event::class)->find($idEvent);
+            if ($eventDelete) {
+                $entityManager->remove($eventDelete);
+                $entityManager->flush();
+            }
+
+            return $this->redirectToRoute('event');
+        }
+
         //Form to register a player at event
-        $usersEvent = new UsersEvent();
-        $formParticipate = $this->createForm(AddParticipationFormType::class);
+        $usersParticipateEvent = new UsersEvent();
+        $formParticipate = $this->createForm(AddParticipationFormType::class, $usersParticipateEvent);
         $formParticipate->handleRequest($request);
         if($formParticipate->isSubmitted() && $formParticipate->isValid()) {
-            $usersEvent = $formParticipate->getData();
+            $usersParticipateEvent = $formParticipate->getData();
             
-            $usersEvent->setUser($this->getUser());
-            $usersEvent->setEvent($this->getDoctrine()->getRepository(Event::class)->find($idEvent));
+            $usersParticipateEvent->setUser($this->getUser());
+            $usersParticipateEvent->setEvent($this->getDoctrine()->getRepository(Event::class)->find($idEvent));
 
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($usersEvent);
+            $entityManager->persist($usersParticipateEvent);
             $entityManager->flush();
 
             return $this->redirectToRoute('event_select', ['id' => $idEvent]);
         }
 
         //Form to unregister a player at event
-        $usersEventDelete = new UsersEvent();
-        $formUnParticipate = $this->createForm(DeleteParticipationFormType::class);
+        $usersParticipateDelete = new UsersEvent();
+        $formUnParticipate = $this->createForm(DeleteParticipationFormType::class, $usersParticipateDelete);
         $formUnParticipate->handleRequest($request);
         if($formUnParticipate->isSubmitted() && $formUnParticipate->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $usersEventDelete = $entityManager->getRepository(UsersEvent::class)->findOneBy(['user' => $this->getUser()->getId(), 'event' => $idEvent]);
-            if ($usersEventDelete) {
-                $entityManager->remove($usersEventDelete);
+            $usersParticipateDelete = $entityManager->getRepository(UsersEvent::class)->findOneBy(['user' => $this->getUser()->getId(), 'event' => $idEvent]);
+            if ($usersParticipateDelete) {
+                $entityManager->remove($usersParticipateDelete);
                 $entityManager->flush();
             }
 
@@ -132,7 +148,7 @@ class EventController extends AbstractController
 
         //Form to add commentary
         $comment = new Comment();
-        $formCommentary = $this->createForm(AddCommentFormType::class);
+        $formCommentary = $this->createForm(AddCommentFormType::class, $comment);
         $formCommentary->handleRequest($request);
         if($formCommentary->isSubmitted() && $formCommentary->isValid()) {
             $comment = $formCommentary->getData();
@@ -153,6 +169,7 @@ class EventController extends AbstractController
             'showAllCommentsEvent' => $showAllCommentsEvent,
             'showAllRegisteredPlayerOfEvent' => $showAllRegisteredPlayerOfEvent,
             'userAlreadyRegistered' => $userAlreadyRegistered,
+            'deleteEventForm' => $formEventDelete->createView(),
             'addCommentForm' => $formCommentary->createView(),
             'participateForm' => $formParticipate->createView(),
             'unParticipateForm' => $formUnParticipate->createView()

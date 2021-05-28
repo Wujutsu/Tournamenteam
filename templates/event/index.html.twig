@@ -58,7 +58,7 @@
     </div>
     {% set event = false %}
     {% for var in showAllEventGame %}
-        {% if showNumberRegisteredPlayerByEvent[var.id] is defined and showNumberRegisteredPlayerByEvent[var.id] == var.nb_player %}
+        {% if var.etat == true %}
             <div class="col-lg-4 col-md-6 col-sm-6 cadreEvent" data-idEvent="{{ var.id }}">
                 <img src="{{ asset('images/games/' ~ var.name_img) }}" alt="Event">
                 <div class="headEvent">
@@ -87,23 +87,23 @@
     </div>
     {% set event = false %}
     {% for var in showAllEventGame %}
-        {% if showNumberRegisteredPlayerByEvent[var.id] is not defined or showNumberRegisteredPlayerByEvent[var.id] != var.nb_player %}
-        <div class="col-lg-4 col-md-6 col-sm-6 cadreEvent" data-idEvent="{{ var.id }}">
-            <img src="{{ asset('images/games/' ~ var.name_img) }}" alt="Event">
-            <div class="headEvent">
-                <i class="fas fa-user"></i>
-                <div class="pseudo">{{ var.creator }}</div>
+        {% if var.etat == false %}
+            <div class="col-lg-4 col-md-6 col-sm-6 cadreEvent" data-idEvent="{{ var.id }}">
+                <img src="{{ asset('images/games/' ~ var.name_img) }}" alt="Event">
+                <div class="headEvent">
+                    <i class="fas fa-user"></i>
+                    <div class="pseudo">{{ var.creator }}</div>
+                </div>
+                <div class="bodyEvent">
+                    {% if  showNumberRegisteredPlayerByEvent[var.id] is defined %}
+                        <div class="nbPlayer">Participants : {{ showNumberRegisteredPlayerByEvent[var.id] }}/{{ var.nb_player }}</div>
+                    {% else %}
+                        <div class="nbPlayer">Participants : 0/{{ var.nb_player }}</div>
+                    {% endif %}
+                    {{ var.name }}
+                </div>
             </div>
-            <div class="bodyEvent">
-                {% if  showNumberRegisteredPlayerByEvent[var.id] is defined %}
-                    <div class="nbPlayer">Participants : {{ showNumberRegisteredPlayerByEvent[var.id] }}/{{ var.nb_player }}</div>
-                {% else %}
-                    <div class="nbPlayer">Participants : 0/{{ var.nb_player }}</div>
-                {% endif %}
-                {{ var.name }}
-            </div>
-        </div>
-        {% set event = true %}
+            {% set event = true %}
         {% endif %}
     {% endfor %}
     {% if event == false %}

@@ -66,6 +66,11 @@ class Event
      */
     private $date_event;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $etat = false;
+
     public function __construct()
     {
         $this->comment = new ArrayCollection();
@@ -217,6 +222,18 @@ class Event
     public function setDateEvent(?\DateTimeInterface $date_event): self
     {
         $this->date_event = $date_event;
+
+        return $this;
+    }
+
+    public function getEtat(): ?bool
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(bool $etat): self
+    {
+        $this->etat = $etat;
 
         return $this;
     }

@@ -14,8 +14,11 @@
 .btnRetour {
     margin-top: -9px;
 }
+.btnDelete {
 
-#dateCreation {
+}
+
+#creator {
     float: right;
     margin-top: -72px;
 }
@@ -27,7 +30,7 @@
     display: none;
 }
 @media (max-width: 550px) {
-    #dateCreation, #nbPlayer {
+    #creator, #nbPlayer {
         display: none;
     }
     #nbPlayerPortable {
