@@ -12,7 +12,7 @@
   border: 2px solid $color_blue;
   font-weight: bold;
 }
-.btn-primary:hover, .btn-primary:focus {
+.btn-primary:hover, .btn-primary:focus, .btn-primary:disabled {
   background: $color_blueBis;
   border: 2px solid $color_blueBis;
 }

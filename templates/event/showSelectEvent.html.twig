@@ -33,16 +33,18 @@
 
     <div class="col-lg-12 mb-3">
         <h4 class="color-yellow">Liste des participants</h4>
-        {% if userAlreadyRegistered|length == 0 %}
-            {% if (showAllRegisteredPlayerOfEvent | length) < showEventGame.nb_player %}
-                {{ form_start(participateForm) }}
-                    {{ form_widget(participateForm.save) }}
-                {{ form_end(participateForm) }}
+        {% if app.user.roles[0] is defined %}
+            {% if userAlreadyRegistered|length == 0 %}
+                {% if (showAllRegisteredPlayerOfEvent | length) < showEventGame.nb_player %}
+                    {{ form_start(participateForm) }}
+                        {{ form_widget(participateForm.save) }}
+                    {{ form_end(participateForm) }}
+                {% endif %}
+            {% else %}
+                {{ form_start(unParticipateForm) }}
+                    {{ form_widget(unParticipateForm.delete) }}
+                {{ form_end(unParticipateForm) }}
             {% endif %}
-        {% else %}
-            {{ form_start(unParticipateForm) }}
-                {{ form_widget(unParticipateForm.delete) }}
-            {{ form_end(unParticipateForm) }}
         {% endif %}
         {% if showAllRegisteredPlayerOfEvent|length > 0 %}
             <div class="row p-2">
@@ -59,11 +61,16 @@
     </div>
 
     <div class="col-lg-8">
-        <h4 class="color-yellow">Commentaires</h4>
-        {{ form_start(addCommentForm) }}
-            {{ form_widget(addCommentForm.comment) }}
-            {{ form_widget(addCommentForm.save) }}
-        {{ form_end(addCommentForm) }}
+        <h4 class="color-yellow">Commentaires </h4>
+        {% if app.user.roles[0] is defined %}
+            {{ form_start(addCommentForm) }}
+                {{ form_widget(addCommentForm.comment) }}
+                {{ form_widget(addCommentForm.save) }}
+            {{ form_end(addCommentForm) }}
+        {% else %}
+            <div class="form-control postCommentDisabled"></div>
+            <button class="btn btn-primary form-control btnAddComment" disabled>Publier</button>
+        {% endif %}
         {% for var in showAllCommentsEvent %}    
             {% set role = "" %}
             {% if var.roles[0] == "ROLE_ADMIN" %}

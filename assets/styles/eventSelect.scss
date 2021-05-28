@@ -65,9 +65,10 @@
     }
 }
 
-.postComment, .postComment:hover, .postComment:focus {
+.postComment, .postComment:hover, .postComment:focus, .postCommentDisabled {
     border-radius: 0px;
     background: rgba($color: #ffffff, $alpha: 0.7);
+    height: 70px;
 }
 .btnAddComment {
     height: 30px;
@@ -106,6 +107,6 @@
         }
     }
     .body {
-        padding-top: 10px;
+        padding-top: 3px;
     }
 }

@@ -96,8 +96,10 @@ class EventController extends AbstractController
         $showAllRegisteredPlayerOfEvent = $usersEvent->findAllRegisteredPlayerOfEvent($idEvent);
 
         //Check if current user are already registered
-        $userAlreadyRegistered = $this->getDoctrine()->getRepository(UsersEvent::class)
-        ->findBy(['user' => $this->getUser()->getId(), 'event' => $idEvent]);
+        if(!empty($this->getUser()))
+            $userAlreadyRegistered = $this->getDoctrine()->getRepository(UsersEvent::class)->findBy(['user' => $this->getUser()->getId(), 'event' => $idEvent]);
+        else
+            $userAlreadyRegistered = false;
 
         //Form to delete Event
         $eventDelete = new Event();
