@@ -19,7 +19,7 @@
 
 /****************** CSS base.html.twig ******************/
 body {
-  background:#2b3035;
+  background:$bg_color;
 }
   
 h1 {
@@ -40,7 +40,7 @@ h1 {
 
 /** NavBar **/
 #sidebar {
-  background: rgb(26, 26, 26);
+  background: $bg_colorNav;
 }
 #sidebarCollapse {
   margin-top: 10px;
@@ -120,5 +120,73 @@ li:hover {
   #content.active {
     margin-left: $size_sideBar;
     width: calc(100% - $size_sideBar);
+  }
+}
+
+/** Chat Bar **/
+#chatBar {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 50px;
+  #chatPosition {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 10px;
+    .bubbleContact {
+      margin-top:12px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50px;
+      background: white;
+      cursor: pointer;
+      img {
+        width: 100%;
+        border-radius: 50px;
+      }
+    }
+  }
+}
+.cadreChat {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin-right: 75px;
+  width:300px;
+  height: 400px;
+  background: $bg_colorNav;
+  box-shadow: 0px 0px 4px white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  .showConvertation {
+    background: white;
+    margin: auto;
+    margin-bottom: 55px;
+    margin-top: 10px;
+    width: 90%;
+    height: 82%;
+  }
+  .comment {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-bottom: 10px;
+    textarea {
+      resize: none;
+      border-radius: 10px;
+      height: 25px;
+      width: 87%;
+    }
+    .fas {
+      float: right;
+      color: white;
+      font-size: 23px;
+      margin-top:-30px;
+      margin-right: 3px;
+      cursor: pointer;
+      color: $color_yellow;
+    }
   }
 }

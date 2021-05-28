@@ -6,3 +6,9 @@ const $ = require('jquery');
 $('#sidebarCollapse').on('click', function() {
     $('#sidebar, #content').toggleClass('active');
 });
+
+//ChatBar
+$('.bubbleContact').on("click", function(){
+    var id = $(this).attr("data-id");
+    alert("AIE !");
+});
