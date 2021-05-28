@@ -62,11 +62,6 @@ class Event
     private $game;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $etat = false;
-
-    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $date_event;
@@ -210,18 +205,6 @@ class Event
     public function setGame(?Games $game): self
     {
         $this->game = $game;
-
-        return $this;
-    }
-
-    public function getEtat(): ?bool
-    {
-        return $this->etat;
-    }
-
-    public function setEtat(?bool $etat): self
-    {
-        $this->etat = $etat;
 
         return $this;
     }

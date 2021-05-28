@@ -12,6 +12,7 @@ use App\Form\DeleteParticipationFormType;
 use App\Repository\CommentRepository;
 use App\Repository\EventRepository;
 use App\Repository\UsersEventRepository;
+use stdClass;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +32,7 @@ class EventController extends AbstractController
     /**
      * @Route("/evenement", name="event")
      */
-    public function index(Request $request, EventRepository $eventRepository): Response
+    public function index(Request $request, EventRepository $eventRepository , UsersEventRepository $usersEvent): Response
     {
         //Form to add Event
         $event = new Event();
@@ -53,9 +54,17 @@ class EventController extends AbstractController
         //Show all Event Game
         $showAllEventGame = $eventRepository->findAllEventGame();
 
+        //Show number player registered by event
+        $showNumberRegisteredPlayer = $usersEvent->countRegisteredPlayerByEvent();
+        $showNumberRegisteredPlayerByEvent = array();
+        foreach($showNumberRegisteredPlayer as $var){
+            $showNumberRegisteredPlayerByEvent[$var["id"]] = $var["nbPlayer"];
+        }
+
         return $this->render('event/index.html.twig', [
             'addEventForm' => $form->createView(),
-            'showAllEventGame' => $showAllEventGame
+            'showAllEventGame' => $showAllEventGame,
+            'showNumberRegisteredPlayerByEvent' => $showNumberRegisteredPlayerByEvent
         ]);
     }
 
@@ -74,7 +83,7 @@ class EventController extends AbstractController
     {
         //Show Event Game
         $showEventGame = $eventRepository->findEventGame($request->attributes->get('id'));
-        if(sizeof($showEventGame) == 0)
+        if(empty($showEventGame))
             return $this->redirectToRoute('event');
         else   
             $idEvent = $request->attributes->get('id');

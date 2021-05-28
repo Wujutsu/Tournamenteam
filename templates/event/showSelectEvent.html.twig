@@ -31,9 +31,11 @@
     <div class="col-lg-12 mb-3">
         <h4 class="color-yellow">Liste des participants</h4>
         {% if userAlreadyRegistered|length == 0 %}
-            {{ form_start(participateForm) }}
-                {{ form_widget(participateForm.save) }}
-            {{ form_end(participateForm) }}
+            {% if (showAllRegisteredPlayerOfEvent | length) < showEventGame.nb_player %}
+                {{ form_start(participateForm) }}
+                    {{ form_widget(participateForm.save) }}
+                {{ form_end(participateForm) }}
+            {% endif %}
         {% else %}
             {{ form_start(unParticipateForm) }}
                 {{ form_widget(unParticipateForm.delete) }}
@@ -63,8 +65,6 @@
             {% set role = "" %}
             {% if var.roles[0] == "ROLE_ADMIN" %}
                 {% set role = "[Admin]" %}
-            {% elseif var.roles[0] == "ROLE_ORGANIZER" %}
-                {% set role = "[Organisateur]" %}
             {% endif %}
             <div class="cadreComment">
                 <div class="head">

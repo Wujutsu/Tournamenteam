@@ -2,7 +2,7 @@ import '../styles/administration.scss';
 import 'datatables.net-bs4';
 const $ = require('jquery');
 
-//DataTable
+//DataTable Games
 $("#tableGames").DataTable({
     "language":{
         sProcessing: "Traitement en cours...",
@@ -38,6 +38,8 @@ $("#tableGames").DataTable({
     "aoColumnDefs" : [ { 'bSortable' : false, 'aTargets' : [3] } ]
 });
 
+
+//DataTable Users
 $("#tableUsers").DataTable({
     "language":{
         sProcessing: "Traitement en cours...",

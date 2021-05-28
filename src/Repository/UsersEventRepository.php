@@ -31,6 +31,19 @@ class UsersEventRepository extends ServiceEntityRepository
         ->getResult();
     }
 
+    public function countRegisteredPlayerByEvent()
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+        ->select('e.id, count(ue.id) as nbPlayer')
+        ->from('App\Entity\UsersEvent', 'ue')
+        ->leftJoin('ue.user', 'u')
+        ->leftJoin('ue.event', 'e')
+        ->groupBy('ue.event')
+        ->orderBy('e.created_at', 'desc')
+        ->getQuery()
+        ->getResult();
+    }
+
     // /**
     //  * @return UsersEvent[] Returns an array of UsersEvent objects
     //  */

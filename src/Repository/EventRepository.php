@@ -22,9 +22,10 @@ class EventRepository extends ServiceEntityRepository
     public function findAllEventGame()
     {
         return $this->getEntityManager()->createQueryBuilder()
-        ->select('e.id, e.title, e.observation, e.nb_player, e.etat, g.name, g.name_img')
+        ->select('e.id, e.title, e.observation, e.nb_player, g.name, g.name_img, u.Pseudo as creator')
         ->from('App\Entity\Event', 'e')
         ->leftJoin('e.game','g')
+        ->leftJoin('e.user', 'u')
         ->orderBy('e.created_at', 'desc')
         ->getQuery()
         ->getResult();
@@ -33,7 +34,7 @@ class EventRepository extends ServiceEntityRepository
     public function findEventGame($idEvent)
     {
         return $this->getEntityManager()->createQueryBuilder()
-        ->select('e.title, e.observation, e.nb_player, e.etat, e.created_at, g.name, g.name_img')
+        ->select('e.title, e.observation, e.nb_player, e.created_at, g.name, g.name_img')
         ->from('App\Entity\Event', 'e')
         ->leftJoin('e.game','g')
         ->andWhere('e.id = :val1')
