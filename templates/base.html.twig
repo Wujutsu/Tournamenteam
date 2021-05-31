@@ -74,6 +74,7 @@
         <div class="page-content p-4 pt-5" id="content">
             {% block body %}{% endblock %}
             
+            <!-- Start chatBar -->
             <div id="chatBar">
                 <div id="chatPosition">
                     {% for i in 0..4 %}
@@ -83,16 +84,31 @@
                     {% endfor %}
                 </div>
             </div>
-
             <div class="cadreChat">
+                <div class="option">
+                    <div class="bubbleContact">
+                        <img src="{{ asset('build/default_user_pic.png') }}" alt="Contact picture">
+                    </div>
+                    <div class="nameContact">Kevin Duballet</div>
+                    <div class="closeCadreChat"><i class="fas fa-times"></i></div>
+                </div>
                 <div class="showConvertation">
-
+                    <div class="row">
+                        <div class="col-12"><div class="comOther">Salut Mec ! J'espere que tu vas bien! Ca fait longtemps! Tu deviens quoi?</div></div>
+                        <div class="col-12"><div class="comMe">Salut Mec !</div></div>
+                        <div class="col-12"><div class="comOther">Salut Mec ! J'espere que tu vas bien! Ca fait longtemps! Tu deviens quoi?</div></div>
+                        <div class="col-12"><div class="comMe">Salut Mec !</div></div>
+                        <div class="col-12"><div class="comOther">Salut Mec ! J'espere que tu vas bien! Ca fait longtemps! Tu deviens quoi?</div></div>
+                        <div class="col-12"><div class="comMe">Salut Mec !</div></div>
+                        <div class="col-12"><div class="comMe">Salut mec ! Juste pour te dire que je passerai un weekend à lorient. Ca pourrait etre cool de se capter ?</div></div>
+                    </div>
                 </div>
                 <div class="comment">
                     <textarea class="form-control" placeholder="Aa"></textarea>
                     <i class="fas fa-paper-plane"></i>
                 </div>
             </div>
+            <!-- End chatBar -->
 
         </div>
         <!-- End content -->

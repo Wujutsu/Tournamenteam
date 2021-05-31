@@ -152,32 +152,90 @@ li:hover {
   bottom: 0;
   right: 0;
   margin-right: 75px;
-  width:300px;
-  height: 400px;
+  width:320px;
+  height: 450px;
   background: $bg_colorNav;
   box-shadow: 0px 0px 4px white;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  .option {
+    width: 100%;
+    height: 40px;
+    background: rgba($color: #000000, $alpha: 0.4);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding:7px;
+    padding-left: 12px;
+    .bubbleContact {
+      width: 25px;
+      height: 25px;
+      border-radius: 50px;
+      background: white;
+      cursor: pointer;
+      img {
+        width: 100%;
+        border-radius: 50px;
+      }
+    }
+    .nameContact {
+      margin-top: -25px;
+      margin-left: 35px;
+      color: white;
+      font-weight: 600;
+    }
+    .closeCadreChat {
+      float: right;
+      color: white;
+      margin-top: -30px;
+      margin-right: 7px;
+      font-size: 25px;
+      cursor: pointer;
+    }
+  }
   .showConvertation {
-    background: white;
-    margin: auto;
     margin-bottom: 55px;
     margin-top: 10px;
-    width: 90%;
-    height: 82%;
+    width: 100%;
+    height: 75%;
+    color: white;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    font-size: 14px;
+    .comOther {
+      float: left;
+      width: fit-content;
+      max-width: 75%;
+      padding: 4px;
+      margin-left: 14px;
+      padding-left: 8px;
+      padding-right: 8px;
+      border-radius: 10px;
+      margin-bottom: 5px;
+      background: rgba($color: #ffffff, $alpha: 0.1);
+    }
+    .comMe {
+      float: right;
+      width: fit-content;
+      max-width: 75%;
+      padding: 4px;
+      margin-right: 14px;
+      padding-left: 8px;
+      padding-right: 8px;
+      border-radius: 10px;
+      margin-bottom: 5px;
+      background: $color_yellow;
+    }
   }
   .comment {
-    position: absolute;
     bottom: 0;
-    width: 100%;
-    padding-left: 12px;
-    padding-right: 12px;
-    padding-bottom: 10px;
+    width: 92%;
+    margin: auto;
     textarea {
       resize: none;
       border-radius: 10px;
       height: 25px;
       width: 87%;
+      margin-top: -44px;
     }
     .fas {
       float: right;
