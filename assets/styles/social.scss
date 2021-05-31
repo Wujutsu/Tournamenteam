@@ -1,0 +1,15 @@
+#errorPseudo {
+    color: red;
+    font-size: 13px;
+    display: none;
+}
+#tableContact {
+    color: white;
+    .celluleBtn {
+        width:fit-content;
+        text-align: right;
+    }
+    .btnDeleteContact, .btnSendContact {
+        font-size: 10px;
+    }
+}

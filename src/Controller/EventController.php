@@ -11,6 +11,7 @@ use App\Form\AddParticipationFormType;
 use App\Form\DeleteEventsFormType;
 use App\Form\DeleteParticipationFormType;
 use App\Repository\CommentRepository;
+use App\Repository\ContactRepository;
 use App\Repository\EventRepository;
 use App\Repository\UsersEventRepository;
 use stdClass;
@@ -33,7 +34,7 @@ class EventController extends AbstractController
     /**
      * @Route("/evenement", name="event")
      */
-    public function index(Request $request, EventRepository $eventRepository , UsersEventRepository $usersEvent): Response
+    public function index(Request $request, EventRepository $eventRepository , UsersEventRepository $usersEvent, ContactRepository $contactRepository): Response
     {
         //Form to add Event
         $event = new Event();
@@ -62,10 +63,14 @@ class EventController extends AbstractController
             $showNumberRegisteredPlayerByEvent[$var["id"]] = $var["nbPlayer"];
         }
 
+        //Show friend of user
+        (!empty($this->getUser())) ? $friendList = $contactRepository->findAllFriendOfUser($this->getUser()->getId()) : $friendList = null;
+
         return $this->render('event/index.html.twig', [
             'addEventForm' => $form->createView(),
             'showAllEventGame' => $showAllEventGame,
-            'showNumberRegisteredPlayerByEvent' => $showNumberRegisteredPlayerByEvent
+            'showNumberRegisteredPlayerByEvent' => $showNumberRegisteredPlayerByEvent,
+            'friendList' => $friendList
         ]);
     }
 
@@ -80,7 +85,7 @@ class EventController extends AbstractController
     /**
      * @Route("/evenement/affiche/{id}", name="event_select")
      */
-    public function eventSelect(Request $request, EventRepository $eventRepository, CommentRepository $commentRepository, UsersEventRepository $usersEvent)
+    public function eventSelect(Request $request, EventRepository $eventRepository, CommentRepository $commentRepository, UsersEventRepository $usersEvent, ContactRepository $contactRepository)
     {
         //Show Event Game
         $showEventGame = $eventRepository->findEventGame($request->attributes->get('id'));
@@ -166,6 +171,9 @@ class EventController extends AbstractController
             return $this->redirectToRoute('event_select', ['id' => $idEvent]);
         }
 
+        //Show friend of user
+        (!empty($this->getUser())) ? $friendList = $contactRepository->findAllFriendOfUser($this->getUser()->getId()) : $friendList = null;
+
         return $this->render('event/showSelectEvent.html.twig', [
             'showEventGame' => $showEventGame,
             'showAllCommentsEvent' => $showAllCommentsEvent,
@@ -174,7 +182,8 @@ class EventController extends AbstractController
             'deleteEventForm' => $formEventDelete->createView(),
             'addCommentForm' => $formCommentary->createView(),
             'participateForm' => $formParticipate->createView(),
-            'unParticipateForm' => $formUnParticipate->createView()
+            'unParticipateForm' => $formUnParticipate->createView(),
+            'friendList' => $friendList
         ]);
     }
 

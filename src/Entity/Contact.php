@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ContactRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,6 +30,16 @@ class Contact
      * @ORM\JoinColumn(nullable=false)
      */
     private $contact;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Convertation::class, mappedBy="contact", orphanRemoval=true)
+     */
+    private $convertations;
+
+    public function __construct()
+    {
+        $this->convertations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -57,4 +69,35 @@ class Contact
 
         return $this;
     }
+
+    /**
+     * @return Collection|Convertation[]
+     */
+    public function getConvertations(): Collection
+    {
+        return $this->convertations;
+    }
+
+    public function addConvertation(Convertation $convertation): self
+    {
+        if (!$this->convertations->contains($convertation)) {
+            $this->convertations[] = $convertation;
+            $convertation->setContact($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConvertation(Convertation $convertation): self
+    {
+        if ($this->convertations->removeElement($convertation)) {
+            // set the owning side to null (unless already changed)
+            if ($convertation->getContact() === $this) {
+                $convertation->setContact(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

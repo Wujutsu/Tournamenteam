@@ -41,7 +41,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link text-light font-italic">
+                    <a href="{{ path('social') }}" class="nav-link text-light font-italic">
                         <i class="fa fa-users mr-4 text-light fa-fw"></i>
                         Social
                     </a>
@@ -77,11 +77,14 @@
             <!-- Start chatBar -->
             <div id="chatBar">
                 <div id="chatPosition">
-                    {% for i in 0..4 %}
-                        <div class="bubbleContact" data-id="2">
-                            <img src="{{ asset('build/default_user_pic.png') }}" alt="Contact picture">
-                        </div>
-                    {% endfor %}
+                    {% if friendList is defined %}
+                        {% for var in friendList %}
+                            <div class="bubbleContact" data-id="{{ var.id }}" data-pseudo="{{ var.Pseudo }}">
+                                <img src="{{ asset('build/default_user_pic.png') }}" alt="Contact picture">
+                                <div class="pseudo">{{ var.Pseudo }}</div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
             <div class="cadreChat">
@@ -89,18 +92,15 @@
                     <div class="bubbleContact">
                         <img src="{{ asset('build/default_user_pic.png') }}" alt="Contact picture">
                     </div>
-                    <div class="nameContact">Kevin Duballet</div>
+                    <div class="nameContact">...</div>
                     <div class="closeCadreChat"><i class="fas fa-times"></i></div>
                 </div>
                 <div class="showConvertation">
                     <div class="row">
                         <div class="col-12"><div class="comOther">Salut Mec ! J'espere que tu vas bien! Ca fait longtemps! Tu deviens quoi?</div></div>
-                        <div class="col-12"><div class="comMe">Salut Mec !</div></div>
-                        <div class="col-12"><div class="comOther">Salut Mec ! J'espere que tu vas bien! Ca fait longtemps! Tu deviens quoi?</div></div>
-                        <div class="col-12"><div class="comMe">Salut Mec !</div></div>
-                        <div class="col-12"><div class="comOther">Salut Mec ! J'espere que tu vas bien! Ca fait longtemps! Tu deviens quoi?</div></div>
-                        <div class="col-12"><div class="comMe">Salut Mec !</div></div>
-                        <div class="col-12"><div class="comMe">Salut mec ! Juste pour te dire que je passerai un weekend à lorient. Ca pourrait etre cool de se capter ?</div></div>
+                        <div class="col-12"><div class="comMe">Fermer tg mec je t'aime pas</div></div>
+                        <div class="col-12"><div class="comOther">Tu veux te battre ?</div></div>
+                        <div class="col-12"><div class="comMe">WOWOWOWO TU SAIS PAS QUI JE SUIS VIEUX RAT!</div></div>
                     </div>
                 </div>
                 <div class="comment">

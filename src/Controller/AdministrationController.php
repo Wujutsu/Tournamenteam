@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Games;
 use App\Entity\Users;
 use App\Form\AddGamesFormType;
+use App\Repository\ContactRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,7 +18,7 @@ class AdministrationController extends AbstractController
     /**
      * @Route("/administration", name="administration")
      */
-    public function index(Request $request): Response
+    public function index(Request $request, ContactRepository $contactRepository): Response
     {
         //Form to add new Games
         $games = new Games();
@@ -44,10 +45,14 @@ class AdministrationController extends AbstractController
         //Show all Users
         $showUsers = $this->getDoctrine()->getRepository(Users::class)->findAll();
 
+        //Show friend of user
+        $friendList = $contactRepository->findAllFriendOfUser($this->getUser()->getId());
+
         return $this->render('administration/index.html.twig', [
             'addGamesForm' => $form->createView(),
             'showGames' => $showGames,
-            'showUsers' => $showUsers
+            'showUsers' => $showUsers,
+            'friendList' => $friendList
         ]);
     }
 

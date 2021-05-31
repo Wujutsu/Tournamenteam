@@ -19,6 +19,19 @@ class ContactRepository extends ServiceEntityRepository
         parent::__construct($registry, Contact::class);
     }
 
+    public function findAllFriendOfUser($idUser)
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+        ->select('u.id, u.Pseudo')
+        ->from('App\Entity\Contact', 'c')
+        ->leftJoin('c.contact','u')
+        ->andWhere('c.user = :val1')
+        ->setParameter('val1', $idUser)
+        ->orderBy('u.Pseudo', 'asc')
+        ->getQuery()
+        ->getResult();
+    }
+
     // /**
     //  * @return Contact[] Returns an array of Contact objects
     //  */

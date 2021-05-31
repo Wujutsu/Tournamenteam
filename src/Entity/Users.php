@@ -68,12 +68,18 @@ class Users implements UserInterface
      */
     private $contacts;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Convertation::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $convertations;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->usersEvents = new ArrayCollection();
         $this->events = new ArrayCollection();
         $this->contacts = new ArrayCollection();
+        $this->convertations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -295,6 +301,36 @@ class Users implements UserInterface
             // set the owning side to null (unless already changed)
             if ($contact->getUser() === $this) {
                 $contact->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Convertation[]
+     */
+    public function getConvertations(): Collection
+    {
+        return $this->convertations;
+    }
+
+    public function addConvertation(Convertation $convertation): self
+    {
+        if (!$this->convertations->contains($convertation)) {
+            $this->convertations[] = $convertation;
+            $convertation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConvertation(Convertation $convertation): self
+    {
+        if ($this->convertations->removeElement($convertation)) {
+            // set the owning side to null (unless already changed)
+            if ($convertation->getUser() === $this) {
+                $convertation->setUser(null);
             }
         }
 
