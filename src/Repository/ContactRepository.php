@@ -22,10 +22,23 @@ class ContactRepository extends ServiceEntityRepository
     public function findAllFriendOfUser($idUser)
     {
         return $this->getEntityManager()->createQueryBuilder()
-        ->select('u.id, u.Pseudo, c.accept')
+        ->select('c.id as idChat, u.id, u.Pseudo, c.accept')
         ->from('App\Entity\Contact', 'c')
         ->leftJoin('c.contact','u')
         ->andWhere('c.user = :val1')
+        ->setParameter('val1', $idUser)
+        ->orderBy('u.Pseudo', 'asc')
+        ->getQuery()
+        ->getResult();
+    }
+
+    public function findAllUserOfFriend($idUser)
+    {
+        return $this->getEntityManager()->createQueryBuilder()
+        ->select('c.id as idChat, u.id, u.Pseudo, c.accept')
+        ->from('App\Entity\Contact', 'c')
+        ->leftJoin('c.user','u')
+        ->andWhere('c.contact = :val1')
         ->setParameter('val1', $idUser)
         ->orderBy('u.Pseudo', 'asc')
         ->getQuery()

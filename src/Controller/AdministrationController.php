@@ -46,13 +46,15 @@ class AdministrationController extends AbstractController
         $showUsers = $this->getDoctrine()->getRepository(Users::class)->findAll();
 
         //Show friend of user
-        $friendList = $contactRepository->findAllFriendOfUser($this->getUser()->getId());
+        $friendListOne = $contactRepository->findAllFriendOfUser($this->getUser()->getId());
+        $friendListTwo = $contactRepository->findAllUserOfFriend($this->getUser()->getId());
 
         return $this->render('administration/index.html.twig', [
             'addGamesForm' => $form->createView(),
             'showGames' => $showGames,
             'showUsers' => $showUsers,
-            'friendList' => $friendList
+            'friendListOne' => $friendListOne,
+            'friendListTwo' => $friendListTwo,
         ]);
     }
 

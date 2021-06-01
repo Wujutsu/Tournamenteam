@@ -54,18 +54,29 @@
                             </tr>
                         </thead>
                         <body>
-                            {% for var in friendList %}
+                            {% for var in friendListOne %}
                             <tr>
                                 <td class="pseudoContact">{{ var.Pseudo }}</td>
                                 <td class="celluleBtn">
-                                {% if var.accept == 2 %}
-                                    <button class="btn btn-primary btnSendContact" aria-label="Send mp contact"><i class="fas fa-paper-plane"></i></button>
+                                {% if var.accept == 1 %}
+                                    <button class="btn btn-primary btnSendContact" data-idChat="{{ var.idChat }}" data-pseudo="{{ var.Pseudo }}" aria-label="Send mp contact"><i class="fas fa-paper-plane"></i></button>
                                     <button class="btn btn-danger btnDeleteContact" data-id="{{ var.id }}" aria-label="delete contact"><i class="fas fa-trash"></i></button>
-                                {% elseif var.accept == 1 %}
-                                    <button class="btn btn-success btnAcceptContact" data-id="{{ var.id }}" aria-label="Accept contact"><i class="fas fa-check"></i></button>
-                                    <button class="btn btn-danger btnDeleteContact" data-id="{{ var.id }}" aria-label="delete contact"><i class="fas fa-trash"></i></button>
-                                {% elseif var.accept == 0 %}
+                                {% else %}
                                     <span class="etatFriend">En attente</span>
+                                    <button class="btn btn-danger btnDeleteContact" data-id="{{ var.id }}" aria-label="delete contact"><i class="fas fa-trash"></i></button>
+                                {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% for var in friendListTwo %}
+                            <tr>
+                                <td class="pseudoContact">{{ var.Pseudo }}</td>
+                                <td class="celluleBtn">
+                                {% if var.accept == 1 %}
+                                    <button class="btn btn-primary btnSendContact" data-idChat="{{ var.idChat }}" data-pseudo="{{ var.Pseudo }}" aria-label="Send mp contact"><i class="fas fa-paper-plane"></i></button>
+                                    <button class="btn btn-danger btnDeleteContact" data-id="{{ var.id }}" aria-label="delete contact"><i class="fas fa-trash"></i></button>
+                                {% else %}
+                                    <button class="btn btn-success btnAcceptContact" data-id="{{ var.id }}" aria-label="Accept contact"><i class="fas fa-check"></i></button>
                                     <button class="btn btn-danger btnDeleteContact" data-id="{{ var.id }}" aria-label="delete contact"><i class="fas fa-trash"></i></button>
                                 {% endif %}
                                 </td>

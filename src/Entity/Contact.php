@@ -6,6 +6,7 @@ use App\Repository\ContactRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Boolean;
 
 /**
  * @ORM\Entity(repositoryClass=ContactRepository::class)
@@ -37,10 +38,10 @@ class Contact
     private $convertations;
 
     /**
-     * @ORM\Column(type="integer")
-     * 0=demande envoyée // 1=attente validation // 1=demande acceptée
+     * @ORM\Column(type="boolean")
+     * 0=demande envoyée 1=demande acceptée
      */
-    private $accept;
+    private $accept = false;
 
     public function __construct()
     {
@@ -106,12 +107,12 @@ class Contact
         return $this;
     }
 
-    public function getAccept(): ?int
+    public function getAccept(): ?bool
     {
         return $this->accept;
     }
 
-    public function setAccept(int $accept): self
+    public function setAccept(Bool $accept): self
     {
         $this->accept = $accept;
 

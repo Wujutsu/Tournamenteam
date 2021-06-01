@@ -75,12 +75,25 @@
             {% block body %}{% endblock %}
             
             <!-- Start chatBar -->
+            {% if app.user.roles[0] is defined %}
+                <input type="hidden" id="currentPseudo" value="{{ app.user.Pseudo }}">
+            {% endif %}
             <div id="chatBar">
                 <div id="chatPosition">
-                    {% if friendList is defined %}
-                        {% for var in friendList %}
-                            {% if var.accept == 2 %}
-                                <div class="bubbleContact" data-id="{{ var.id }}" data-pseudo="{{ var.Pseudo }}">
+                    {% if friendListOne is defined %}
+                        {% for var in friendListOne %}
+                            {% if var.accept == 1 %}
+                                <div class="bubbleContact" data-idChat="{{ var.idChat }}" data-pseudo="{{ var.Pseudo }}">
+                                    <img src="{{ asset('build/default_user_pic.png') }}" alt="Contact picture">
+                                    <div class="pseudo">{{ var.Pseudo }}</div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% if friendListTwo is defined %}
+                        {% for var in friendListTwo %}
+                            {% if var.accept == 1 %}
+                                <div class="bubbleContact" data-idChat="{{ var.idChat }}" data-pseudo="{{ var.Pseudo }}">
                                     <img src="{{ asset('build/default_user_pic.png') }}" alt="Contact picture">
                                     <div class="pseudo">{{ var.Pseudo }}</div>
                                 </div>
@@ -89,27 +102,7 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="cadreChat">
-                <div class="option">
-                    <div class="bubbleContact">
-                        <img src="{{ asset('build/default_user_pic.png') }}" alt="Contact picture">
-                    </div>
-                    <div class="nameContact">...</div>
-                    <div class="closeCadreChat"><i class="fas fa-times"></i></div>
-                </div>
-                <div class="showConvertation">
-                    <div class="row">
-                        <div class="col-12"><div class="comOther">Salut Mec ! J'espere que tu vas bien! Ca fait longtemps! Tu deviens quoi?</div></div>
-                        <div class="col-12"><div class="comMe">Fermer tg mec je t'aime pas</div></div>
-                        <div class="col-12"><div class="comOther">Tu veux te battre ?</div></div>
-                        <div class="col-12"><div class="comMe">WOWOWOWO TU SAIS PAS QUI JE SUIS VIEUX RAT!</div></div>
-                    </div>
-                </div>
-                <div class="comment">
-                    <textarea class="form-control" placeholder="Aa"></textarea>
-                    <i class="fas fa-paper-plane"></i>
-                </div>
-            </div>
+            <div id='showCadreChat'></div>
             <!-- End chatBar -->
 
         </div>

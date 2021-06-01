@@ -20,7 +20,8 @@ class SocialController extends AbstractController
     public function index(Request $request, ContactRepository $contactRepository): Response
     {
         //Show friend of user
-        $friendList = $contactRepository->findAllFriendOfUser($this->getUser()->getId());
+        $friendListOne = $contactRepository->findAllFriendOfUser($this->getUser()->getId());
+        $friendListTwo = $contactRepository->findAllUserOfFriend($this->getUser()->getId());
 
         //Form to add a friend
         $contact = new Contact();
@@ -33,17 +34,8 @@ class SocialController extends AbstractController
             if(!empty($idOfPseudo)) {
                 $contact->setUser($this->getUser());
                 $contact->setContact($idOfPseudo);
-                $contact->setAccept(0);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($contact);
-                $entityManager->flush();
-
-                $contactBis = new Contact();
-                $contactBis->setUser($idOfPseudo);
-                $contactBis->setContact($this->getUser());
-                $contactBis->setAccept(1);
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($contactBis);
                 $entityManager->flush();
             }
 
@@ -52,7 +44,8 @@ class SocialController extends AbstractController
 
         return $this->render('social/index.html.twig', [
             'addFriendForm' => $formAddFriend->createView(),
-            'friendList' => $friendList
+            'friendListOne' => $friendListOne,
+            'friendListTwo' => $friendListTwo,
         ]);
     }
 
@@ -65,7 +58,12 @@ class SocialController extends AbstractController
             $verifPseudo = $this->getDoctrine()->getRepository(Users::class)->findOneBy(['Pseudo' => $request->request->get('pseudo')]);
             if($verifPseudo){
                 $verifDoublon = $this->getDoctrine()->getRepository(Contact::class)->findOneBy(['user' => $this->getUser()->getId(), 'contact' => $verifPseudo->getId()]);
-                ($verifDoublon) ? $retour = 'Déjà en ami' : $retour = true;
+                if($verifDoublon){
+                    $retour = 'Déjà en ami';                    
+                } else {
+                    $verifDoublonBis = $this->getDoctrine()->getRepository(Contact::class)->findOneBy(['user' => $verifPseudo->getId(), 'contact' => $this->getUser()->getId()]);
+                    ($verifDoublonBis) ? $retour = 'Déjà en ami' : $retour = true; 
+                }
             } else {
                 $retour = 'Pseudo inconnu';
             } 
@@ -83,14 +81,11 @@ class SocialController extends AbstractController
     {
         if ($request->isXmlHttpRequest() || $request->query->get('showJson') == 1) {  
             $entityManager = $this->getDoctrine()->getManager();
-            $contact = $entityManager->getRepository(Contact::class)->findOneBy(['user' => $this->getUser(), 'contact' => $request->request->get('id')]);
-            $contactBis = $entityManager->getRepository(Contact::class)->findOneBy(['user' => $request->request->get('id'), 'contact' => $this->getUser()]);
-            
+            $contact = $entityManager->getRepository(Contact::class)->findOneBy(['user' => $request->request->get('id'), 'contact' => $this->getUser()]);
+
             $retour = false;
-            if ($contact && $contactBis) {
-                $contact->setAccept(2);
-                $entityManager->flush();
-                $contactBis->setAccept(2);
+            if ($contact) {
+                $contact->setAccept(true);
                 $entityManager->flush();
                 $retour = true;
             }
@@ -108,13 +103,16 @@ class SocialController extends AbstractController
     {
         if ($request->isXmlHttpRequest() || $request->query->get('showJson') == 1) {  
             $entityManager = $this->getDoctrine()->getManager();
-            $contact = $entityManager->getRepository(Contact::class)->findOneBy(['user' => $this->getUser(), 'contact' => $request->request->get('id')]);
-            $contactBis = $entityManager->getRepository(Contact::class)->findOneBy(['user' => $request->request->get('id'), 'contact' => $this->getUser()]);
-            
             $retour = false;
-            if ($contact && $contactBis) {
+
+            $contact = $entityManager->getRepository(Contact::class)->findOneBy(['user' => $this->getUser(), 'contact' => $request->request->get('id')]);
+            if ($contact) {
                 $entityManager->remove($contact);
                 $entityManager->flush();
+                $retour = true;
+            }
+            $contactBis = $entityManager->getRepository(Contact::class)->findOneBy(['user' => $request->request->get('id'), 'contact' => $this->getUser()]);
+            if ($contactBis) {
                 $entityManager->remove($contactBis);
                 $entityManager->flush();
                 $retour = true;

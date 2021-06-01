@@ -64,13 +64,20 @@ class EventController extends AbstractController
         }
 
         //Show friend of user
-        (!empty($this->getUser())) ? $friendList = $contactRepository->findAllFriendOfUser($this->getUser()->getId()) : $friendList = null;
+        if(!empty($this->getUser())){
+            $friendListOne = $contactRepository->findAllFriendOfUser($this->getUser()->getId());
+            $friendListTwo = $contactRepository->findAllUserOfFriend($this->getUser()->getId());
+        } else {
+            $friendListOne = null;
+            $friendListTwo = null;
+        } 
 
         return $this->render('event/index.html.twig', [
             'addEventForm' => $form->createView(),
             'showAllEventGame' => $showAllEventGame,
             'showNumberRegisteredPlayerByEvent' => $showNumberRegisteredPlayerByEvent,
-            'friendList' => $friendList
+            'friendListOne' => $friendListOne,
+            'friendListTwo' => $friendListTwo,
         ]);
     }
 
@@ -172,7 +179,13 @@ class EventController extends AbstractController
         }
 
         //Show friend of user
-        (!empty($this->getUser())) ? $friendList = $contactRepository->findAllFriendOfUser($this->getUser()->getId()) : $friendList = null;
+        if(!empty($this->getUser())){
+            $friendListOne = $contactRepository->findAllFriendOfUser($this->getUser()->getId());
+            $friendListTwo = $contactRepository->findAllUserOfFriend($this->getUser()->getId());
+        } else {
+            $friendListOne = null;
+            $friendListTwo = null;
+        } 
 
         return $this->render('event/showSelectEvent.html.twig', [
             'showEventGame' => $showEventGame,
@@ -183,7 +196,8 @@ class EventController extends AbstractController
             'addCommentForm' => $formCommentary->createView(),
             'participateForm' => $formParticipate->createView(),
             'unParticipateForm' => $formUnParticipate->createView(),
-            'friendList' => $friendList
+            'friendListOne' => $friendListOne,
+            'friendListTwo' => $friendListTwo,
         ]);
     }
 
