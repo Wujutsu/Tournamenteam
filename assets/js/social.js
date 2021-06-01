@@ -1,7 +1,7 @@
 import '../styles/social.scss';
 const $ = require('jquery');
 
-//Modal Add Friend verification if pseudo exist or doublon
+//Add Friend request verification if pseudo exist or doublon
 $("#add_friend_form_save").on("click", function(){
     $.ajax({
         type: "post",
@@ -21,3 +21,32 @@ $("#add_friend_form_save").on("click", function(){
     });
     return false;   
 });
+
+//Accept a friend
+$(".btnAcceptContact").on("click", function(){
+    $.ajax({
+        type: "post",
+        url: "/ajax/acceptFriend",
+        data: {
+            id: $(this).attr("data-id")
+        },
+        success: function (response) {
+            (response == true) ? location.reload() : alert("Erreur lors de la validation");
+        }
+    }); 
+});
+
+//Delete a friend
+$(".btnDeleteContact").on("click", function(){
+   $.ajax({
+       type: "post",
+       url: "/ajax/deleteFriend",
+       data: {
+           id: $(this).attr("data-id")
+       },
+       success: function (response) {
+           (response == true) ? location.reload() : alert("Erreur lors de la suppression");
+       }
+   }); 
+});
+

@@ -1,3 +1,5 @@
+@import "variable";
+
 #errorPseudo {
     color: red;
     font-size: 13px;
@@ -5,11 +7,18 @@
 }
 #tableContact {
     color: white;
+    .pseudoContact {
+        font-size: 18px;
+    }
     .celluleBtn {
         width:fit-content;
         text-align: right;
+        .etatFriend {
+            margin-right: 10px;
+            border-radius: 15px;
+        }
     }
-    .btnDeleteContact, .btnSendContact {
+    .btnDeleteContact, .btnSendContact, .btnAcceptContact {
         font-size: 10px;
     }
 }

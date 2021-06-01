@@ -22,7 +22,7 @@ class ContactRepository extends ServiceEntityRepository
     public function findAllFriendOfUser($idUser)
     {
         return $this->getEntityManager()->createQueryBuilder()
-        ->select('u.id, u.Pseudo')
+        ->select('u.id, u.Pseudo, c.accept')
         ->from('App\Entity\Contact', 'c')
         ->leftJoin('c.contact','u')
         ->andWhere('c.user = :val1')

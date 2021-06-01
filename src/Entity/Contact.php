@@ -36,6 +36,12 @@ class Contact
      */
     private $convertations;
 
+    /**
+     * @ORM\Column(type="integer")
+     * 0=demande envoyée // 1=attente validation // 1=demande acceptée
+     */
+    private $accept;
+
     public function __construct()
     {
         $this->convertations = new ArrayCollection();
@@ -96,6 +102,18 @@ class Contact
                 $convertation->setContact(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAccept(): ?int
+    {
+        return $this->accept;
+    }
+
+    public function setAccept(int $accept): self
+    {
+        $this->accept = $accept;
 
         return $this;
     }

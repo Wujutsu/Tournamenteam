@@ -79,10 +79,12 @@
                 <div id="chatPosition">
                     {% if friendList is defined %}
                         {% for var in friendList %}
-                            <div class="bubbleContact" data-id="{{ var.id }}" data-pseudo="{{ var.Pseudo }}">
-                                <img src="{{ asset('build/default_user_pic.png') }}" alt="Contact picture">
-                                <div class="pseudo">{{ var.Pseudo }}</div>
-                            </div>
+                            {% if var.accept == 2 %}
+                                <div class="bubbleContact" data-id="{{ var.id }}" data-pseudo="{{ var.Pseudo }}">
+                                    <img src="{{ asset('build/default_user_pic.png') }}" alt="Contact picture">
+                                    <div class="pseudo">{{ var.Pseudo }}</div>
+                                </div>
+                            {% endif %}
                         {% endfor %}
                     {% endif %}
                 </div>

@@ -42,7 +42,7 @@
     <div class="col-12">
         <button class="btn btn-primary" id="btnAddFriend" data-bs-toggle="modal" data-bs-target="#modalAddFriend" aria-label="Add friend">Ajouter un ami</button>
     </div>
-    <div class="col-lg-4 col-md-6">
+    <div class="col-md-6">
         <div class="cadreContact">
             <div class="mt-4">
                 <div class="table-responsive">
@@ -56,10 +56,18 @@
                         <body>
                             {% for var in friendList %}
                             <tr>
-                                <td>{{ var.Pseudo }}</td>
+                                <td class="pseudoContact">{{ var.Pseudo }}</td>
                                 <td class="celluleBtn">
+                                {% if var.accept == 2 %}
                                     <button class="btn btn-primary btnSendContact" aria-label="Send mp contact"><i class="fas fa-paper-plane"></i></button>
-                                    <button class="btn btn-danger btnDeleteContact" aria-label="delete contact"><i class="fas fa-trash"></i></button>
+                                    <button class="btn btn-danger btnDeleteContact" data-id="{{ var.id }}" aria-label="delete contact"><i class="fas fa-trash"></i></button>
+                                {% elseif var.accept == 1 %}
+                                    <button class="btn btn-success btnAcceptContact" data-id="{{ var.id }}" aria-label="Accept contact"><i class="fas fa-check"></i></button>
+                                    <button class="btn btn-danger btnDeleteContact" data-id="{{ var.id }}" aria-label="delete contact"><i class="fas fa-trash"></i></button>
+                                {% elseif var.accept == 0 %}
+                                    <span class="etatFriend">En attente</span>
+                                    <button class="btn btn-danger btnDeleteContact" data-id="{{ var.id }}" aria-label="delete contact"><i class="fas fa-trash"></i></button>
+                                {% endif %}
                                 </td>
                             </tr>
                             {% endfor %}
