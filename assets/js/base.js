@@ -17,13 +17,11 @@ var saveLengthTab = 0;
 //Select a friend
 $('.bubbleContact, .btnSendContact').on("click", function(){
     //Verification new selection
-    if(idChat != $(this).attr("data-idChat")) {
-        idChat = $(this).attr("data-idChat");
-        pseudo = $(this).attr("data-pseudo");
-    
-        //Clear chat
-        $("#showCadreChat").html('');
-    }
+    idChat = $(this).attr("data-idChat");
+    pseudo = $(this).attr("data-pseudo");
+
+    //Clear chat
+    $("#showCadreChat").html('');
 });
 
 //Refresh convertation 500ms
